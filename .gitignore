@@ -1,0 +1,160 @@
+# =============================================================================
+# Bay Bridge Traffic Cam - .gitignore
+# =============================================================================
+
+# Machine Learning Models
+# ----------------------
+yolov8n.pt
+*.pt
+*.pth
+*.onnx
+*.tflite
+*.pb
+models/
+checkpoints/
+
+# Python
+# ------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+# -------------------
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.python-version
+
+# Package Managers
+# ---------------
+# uv
+uv.lock
+.uv/
+
+# pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Environment and Configuration Files with Secrets
+# ------------------------------------------------
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+prometheus.yml
+*.key
+*.pem
+*.crt
+config.local.py
+secrets.json
+
+# Generated Output Files
+# ---------------------
+outputs/
+prometheus_data/
+grafana_data/
+prometheus_import/
+*.jpg
+*.jpeg
+*.png
+*.mp4
+*.avi
+*.mov
+*.gif
+temp/
+tmp/
+cache/
+
+# Monitoring and Metrics Data
+# --------------------------
+traffic_metrics_state.json
+traffic_metrics_state.json.bak
+*.metrics
+*.log
+logs/
+
+# Docker
+# ------
+.dockerignore
+docker-compose.override.yml
+.docker/
+
+# IDE and Editor Files
+# -------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# OS Generated Files
+# -----------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Jupyter Notebooks
+# -----------------
+.ipynb_checkpoints/
+*.ipynb
+
+# Testing
+# -------
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Documentation
+# ------------
+docs/_build/
+.readthedocs.yml
+
+# Backup Files
+# -----------
+*.bak
+*.backup
+*.old
+*.orig
+
+# Temporary Files
+# --------------
+*.tmp
+*.temp
+.cache/
