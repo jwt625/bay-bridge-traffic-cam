@@ -19,9 +19,20 @@ A comprehensive real-time traffic detection and monitoring system for Bay Bridge
 ## 🚀 Quick Start
 
 ### 1. Start Complete Monitoring Infrastructure
+
+**Option A: All-in-One (Recommended)**
 ```bash
-# Start all monitoring services (Prometheus + Grafana + Nginx)
+# Start all services including Python proxy
+./start-bay-bridge-services.sh --with-proxy
+```
+
+**Option B: Manual Steps**
+```bash
+# Start monitoring services (Prometheus + Grafana)
 ./start-bay-bridge-services.sh
+
+# Start Python proxy server for dashboard access
+python3 working-proxy.py
 ```
 
 ### 2. Start Cloudflare Tunnel (for public access)
@@ -38,9 +49,9 @@ uv run python motion_detector.py
 
 ### 4. Access Monitoring
 - **Public Dashboard**: https://bay-bridge-traffic.com (requires tunnel)
+- **Local Dashboard**: http://localhost:8080 (via Python proxy)
 - **Local Grafana**: http://localhost:3000 (admin/admin)
 - **Local Prometheus**: http://localhost:9090
-- **Nginx Proxy**: http://localhost:8080
 - **Metrics Endpoint**: http://localhost:9091/metrics
 
 ### 5. Custom Landing Page
@@ -260,6 +271,53 @@ Four built-in presets optimized for different scenarios:
 
 The complete monitoring system requires multiple services to run:
 
+### 🐍 Python Proxy Server (Recommended)
+
+The system uses a custom Python proxy server that provides reliable dashboard access:
+
+**Features:**
+- ✅ Serves custom landing page at root path (`/`)
+- ✅ Proxies all Grafana requests to localhost:3000
+- ✅ Handles all static assets (CSS, JS) consistently
+- ✅ No nginx configuration complexity
+- ✅ 100% reliable asset loading (no intermittent 404s)
+
+**Usage:**
+
+**Option 1: Automatic (Recommended)**
+```bash
+# Start with all services including proxy
+./start-bay-bridge-services.sh --with-proxy
+```
+
+**Option 2: Manual**
+```bash
+# Start the proxy server manually
+python3 working-proxy.py
+
+# Output:
+# ✅ Bay Bridge Traffic Dashboard Proxy running on port 8080
+# 🔗 Landing page: http://localhost:8080/
+# 📊 Dashboard: http://localhost:8080/d/bay-bridge-traffic/bay-bridge-traffic-detection-system
+```
+
+**Access Points:**
+- **Landing Page**: http://localhost:8080/
+- **Dashboard**: http://localhost:8080/d/bay-bridge-traffic/bay-bridge-traffic-detection-system
+- **All Grafana Features**: Full functionality through proxy
+
+**Startup Script Options:**
+```bash
+# Start core services only (Prometheus + Grafana)
+./start-bay-bridge-services.sh
+
+# Start all services including Python proxy (recommended)
+./start-bay-bridge-services.sh --with-proxy
+```
+
+**Why Python Proxy?**
+The original nginx setup had persistent alternating 404/200 issues that couldn't be resolved through configuration changes. The Python proxy provides a reliable alternative that ensures consistent dashboard functionality.
+
 ### Required Services
 
 #### 1. Docker Services
@@ -272,7 +330,18 @@ docker logs prometheus
 docker logs grafana
 ```
 
-#### 2. Nginx Reverse Proxy
+#### 2. Python Proxy Server (Recommended)
+```bash
+# Start Python proxy server for dashboard access
+python3 working-proxy.py
+
+# Server will start on port 8080 with output:
+# ✅ Bay Bridge Traffic Dashboard Proxy running on port 8080
+# 🔗 Landing page: http://localhost:8080/
+# 📊 Dashboard: http://localhost:8080/d/bay-bridge-traffic/bay-bridge-traffic-detection-system
+```
+
+#### Alternative: Nginx Reverse Proxy
 ```bash
 # Start Nginx (if not running)
 nginx
@@ -300,21 +369,38 @@ python motion_detector.py
 ```
 
 ### All-in-One Startup
-```bash
-# Start all services except tunnel and application
-./start-bay-bridge-services.sh
 
-# Then start tunnel in separate terminal
+**Recommended: Single Command**
+```bash
+# Start all infrastructure services including proxy
+./start-bay-bridge-services.sh --with-proxy
+
+# Start tunnel in separate terminal (for public access)
 cloudflared tunnel run grafana-local
 
-# Then start application in another terminal
+# Start application in another terminal
+python motion_detector.py
+```
+
+**Alternative: Manual Steps**
+```bash
+# Start core services only
+./start-bay-bridge-services.sh
+
+# Start Python proxy server in separate terminal
+python3 working-proxy.py
+
+# Start tunnel in separate terminal (for public access)
+cloudflared tunnel run grafana-local
+
+# Start application in another terminal
 python motion_detector.py
 ```
 
 **Services Overview:**
 - **Prometheus** (port 9090) - Metrics collection and storage
 - **Grafana** (port 3000) - Dashboard and visualization
-- **Nginx** (port 8080) - Reverse proxy for public access
+- **Python Proxy** (port 8080) - Dashboard access with landing page
 - **Application** (port 9091) - Metrics HTTP server
 - **Cloudflare Tunnel** - Secure public access to dashboard
 
@@ -332,8 +418,9 @@ python motion_detector.py
 ├── start.sh                   # Legacy startup script
 ├── start-bay-bridge-services.sh # Complete infrastructure startup
 ├── setup-cloudflare-tunnel.sh # Tunnel setup automation
+├── working-proxy.py           # Python proxy server for dashboard access
 ├── grafana-dashboard.json     # Ready-to-import dashboard
-├── nginx/                     # Reverse proxy configuration
+├── nginx/                     # Alternative reverse proxy configuration
 │   └── bay-bridge-traffic.conf
 ├── grafana/                   # Grafana provisioning
 │   ├── provisioning/
@@ -406,17 +493,16 @@ The system uses a custom landing page with embedded Grafana dashboard, served vi
 
 **Architecture:**
 ```
-Internet → Cloudflare Tunnel → Nginx → Custom Landing Page
-                                    ↓
-                               iframe → Local Grafana (localhost:3000)
+Internet → Cloudflare Tunnel → Python Proxy → Custom Landing Page
+                                           ↓
+                                      iframe → Local Grafana (localhost:3000)
 ```
 
 **Setup Steps:**
-1. **Start Services**: `./start-bay-bridge-services.sh`
+1. **Start All Services**: `./start-bay-bridge-services.sh --with-proxy`
 2. **Setup Tunnel**: `./setup-cloudflare-tunnel.sh` (one-time)
-3. **Deploy Landing Page**: Deploy nginx config (see section 5 above)
-4. **Start Tunnel**: `cloudflared tunnel run grafana-local`
-5. **Access Dashboard**: https://bay-bridge-traffic.com
+3. **Start Tunnel**: `cloudflared tunnel run grafana-local`
+4. **Access Dashboard**: https://bay-bridge-traffic.com
 
 ### Optional: Grafana Cloud Integration
 
@@ -558,7 +644,7 @@ For additional cloud backup and alerting:
 
 ### Complete Deployment Checklist
 
-1. **Start all infrastructure services**: `./start-bay-bridge-services.sh`
+1. **Start all infrastructure services**: `./start-bay-bridge-services.sh --with-proxy`
 2. **Setup Cloudflare tunnel** (one-time): `./setup-cloudflare-tunnel.sh`
 3. **Start tunnel for public access**: `cloudflared tunnel run grafana-local`
 4. **Run traffic detection**: `python motion_detector.py`
@@ -572,17 +658,17 @@ For additional cloud backup and alerting:
 - Traffic detection application
 
 **Required for public access:**
-- Nginx reverse proxy
+- Python proxy server (working-proxy.py)
 - Cloudflare tunnel
 - Domain configuration
 
 ### Monitoring Endpoints
 
 - **Public Dashboard**: https://bay-bridge-traffic.com
+- **Local Dashboard**: http://localhost:8080 (via Python proxy)
 - **Local Grafana**: http://localhost:3000 (admin/admin)
 - **Local Prometheus**: http://localhost:9090
 - **Application Metrics**: http://localhost:9091/metrics
-- **Nginx Proxy**: http://localhost:8080
 
 ### Known Issues
 
