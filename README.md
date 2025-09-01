@@ -33,7 +33,7 @@ cloudflared tunnel run grafana-local
 ### 3. Run Traffic Detection with Metrics
 ```bash
 # Start the complete system with monitoring (main entry point)
-python motion_detector.py
+uv run python motion_detector.py
 ```
 
 ### 4. Access Monitoring

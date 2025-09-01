@@ -11,16 +11,27 @@ fi
 
 echo "✅ Docker is running"
 
-# Start Docker services (Prometheus + Grafana)
-echo "🚀 Starting Prometheus and Grafana..."
-docker-compose up -d
+# Check if containers exist (running or stopped)
+GRAFANA_RUNNING=$(docker ps -q -f name=grafana)
+PROMETHEUS_RUNNING=$(docker ps -q -f name=prometheus)
+GRAFANA_EXISTS=$(docker ps -aq -f name=grafana)
+PROMETHEUS_EXISTS=$(docker ps -aq -f name=prometheus)
 
-if [ $? -ne 0 ]; then
-    echo "❌ Failed to start Docker services"
-    exit 1
+if [ -n "$GRAFANA_RUNNING" ] && [ -n "$PROMETHEUS_RUNNING" ]; then
+    echo "✅ Docker services are already running"
+elif [ -n "$GRAFANA_EXISTS" ] || [ -n "$PROMETHEUS_EXISTS" ]; then
+    echo "🔄 Containers exist but are stopped. Starting existing containers..."
+    docker start grafana prometheus 2>/dev/null || true
+    echo "✅ Docker services started"
+else
+    echo "🚀 Creating and starting Prometheus and Grafana..."
+    docker-compose up -d
+    if [ $? -ne 0 ]; then
+        echo "❌ Failed to start Docker services"
+        exit 1
+    fi
+    echo "✅ Docker services started"
 fi
-
-echo "✅ Docker services started"
 
 # Wait for services to be ready
 echo "⏳ Waiting for services to be ready..."

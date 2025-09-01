@@ -158,3 +158,5 @@ docs/_build/
 *.tmp
 *.temp
 .cache/
+*.json
+*.txt
