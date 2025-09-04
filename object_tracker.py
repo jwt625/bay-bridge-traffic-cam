@@ -179,11 +179,15 @@ class TrackedObject:
         return self.centroid
     
     def get_speed_pixels_per_second(self):
-        """Calculate speed in pixels per second."""
+        """Calculate speed in pixels per second using actual distance."""
         if len(self.positions) >= 2 and len(self.timestamps) >= 2:
+            # Calculate actual distance between last two positions
+            pos1 = self.positions[-2]
+            pos2 = self.positions[-1]
+            distance = np.sqrt((pos2[0] - pos1[0])**2 + (pos2[1] - pos1[1])**2)
+
             time_diff = self.timestamps[-1] - self.timestamps[-2]
             if time_diff > 0:
-                distance = np.sqrt(self.velocity[0]**2 + self.velocity[1]**2)
                 return distance / time_diff
         return 0.0
     
@@ -499,6 +503,12 @@ class TrafficCounter:
                         metrics = get_metrics()
                         if metrics:
                             metrics.record_vehicle_count(obj.direction)
+
+                            # NEW: Speed metrics recording (RFD-012)
+                            speed = obj.get_speed_pixels_per_second()
+                            if speed > 0:  # Only record valid speeds
+                                metrics.record_vehicle_speed(obj.direction, speed)
+                                print(f"  🏃 Speed: {speed:.1f} px/s")
                     else:
                         print(f"  ⚠️ WARNING: Object direction '{obj.direction}' not valid for bridge side view! Not counted.")
 

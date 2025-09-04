@@ -119,7 +119,22 @@ class TrafficMetrics:
             ['component'] + self.common_labels,
             registry=self.registry
         )
-        
+
+        # Priority 1.5: Speed Metrics (RFD-012 Implementation)
+        self.traffic_speed_current = Gauge(
+            'traffic_speed_current_pixels_per_second',
+            'Current vehicle speed when crossing counting line',
+            ['direction'] + self.common_labels,
+            registry=self.registry
+        )
+
+        self.traffic_speed_average = Gauge(
+            'traffic_speed_average_pixels_per_second',
+            'Average vehicle speed over time window',
+            ['direction', 'window'] + self.common_labels,
+            registry=self.registry
+        )
+
         # Priority 2: Performance Metrics (Future Phase)
         self.motion_detector_fps = Gauge(
             'motion_detector_fps',
@@ -148,6 +163,12 @@ class TrafficMetrics:
         self._flow_calculation_thread = None
         self._stop_flow_calculation = threading.Event()
         self._last_flow_calculation = time.time()
+
+        # Internal state for speed metrics calculation
+        self._speed_history = defaultdict(list)  # direction -> list of (timestamp, speed)
+        self._speed_calculation_thread = None
+        self._stop_speed_calculation = threading.Event()
+        self._last_speed_calculation = time.time()
 
         # HTTP server state
         self._http_server_started = False
@@ -280,7 +301,43 @@ class TrafficMetrics:
 
         if self.config.debug:
             logger.debug(f"Vehicle count recorded: {direction}")
-    
+
+    def record_vehicle_speed(self, direction: str, speed: float):
+        """
+        Record a vehicle speed measurement.
+
+        Args:
+            direction: 'left' or 'right'
+            speed: Speed in pixels per second
+        """
+        if not self.config.enabled:
+            return
+
+        # Validate speed range (reasonable values for Bay Bridge)
+        if speed <= 0 or speed > 200:  # Filter out unrealistic speeds (including zero)
+            if self.config.debug:
+                logger.debug(f"Speed value {speed:.1f} px/s filtered out (unrealistic)")
+            return
+
+        # Record current speed
+        self.traffic_speed_current.labels(
+            direction=direction,
+            app=self.config.app_name,
+            instance=self.config.app_instance
+        ).set(speed)
+
+        # Add to speed history for average calculations
+        current_time = time.time()
+        self._speed_history[direction].append((current_time, speed))
+
+        # Limit history size (keep last 1000 entries per direction)
+        max_history = 1000
+        if len(self._speed_history[direction]) > max_history:
+            self._speed_history[direction] = self._speed_history[direction][-max_history:]
+
+        if self.config.debug:
+            logger.debug(f"Vehicle speed recorded: {direction}={speed:.1f} px/s")
+
     def update_system_status(self, component: str, healthy: bool):
         """
         Update system component health status.
@@ -351,7 +408,30 @@ class TrafficMetrics:
         self._flow_calculation_thread.join(timeout=5)
         self._flow_calculation_thread = None
         logger.info("Flow rate calculation thread stopped")
-    
+
+    def start_speed_calculation(self):
+        """Start background thread for speed average calculation."""
+        if self._speed_calculation_thread is not None:
+            return
+
+        self._stop_speed_calculation.clear()
+        self._speed_calculation_thread = threading.Thread(
+            target=self._speed_calculation_worker,
+            daemon=True
+        )
+        self._speed_calculation_thread.start()
+        logger.info("Speed calculation thread started")
+
+    def stop_speed_calculation(self):
+        """Stop background speed calculation."""
+        if self._speed_calculation_thread is None:
+            return
+
+        self._stop_speed_calculation.set()
+        self._speed_calculation_thread.join(timeout=5)
+        self._speed_calculation_thread = None
+        logger.info("Speed calculation thread stopped")
+
     def _flow_calculation_worker(self):
         """Background worker for calculating traffic flow rates."""
         while not self._stop_flow_calculation.wait(self.config.flow_calculation_interval):
@@ -379,7 +459,60 @@ class TrafficMetrics:
                 
             except Exception as e:
                 logger.error(f"Error in flow calculation: {e}")
-    
+
+    def _speed_calculation_worker(self):
+        """Background worker for calculating average speed metrics."""
+        while not self._stop_speed_calculation.wait(30):  # Calculate every 30 seconds
+            try:
+                current_time = time.time()
+
+                # Calculate average speeds for different time windows
+                time_windows = {
+                    '1min': 60,
+                    '5min': 300,
+                    '15min': 900
+                }
+
+                for direction in ['left', 'right']:
+                    speed_data = self._speed_history.get(direction, [])
+
+                    for window_name, window_seconds in time_windows.items():
+                        # Filter speeds within time window
+                        cutoff_time = current_time - window_seconds
+                        recent_speeds = [speed for timestamp, speed in speed_data if timestamp >= cutoff_time]
+
+                        if recent_speeds:
+                            avg_speed = sum(recent_speeds) / len(recent_speeds)
+
+                            self.traffic_speed_average.labels(
+                                direction=direction,
+                                window=window_name,
+                                app=self.config.app_name,
+                                instance=self.config.app_instance
+                            ).set(avg_speed)
+
+                            if self.config.debug:
+                                logger.debug(f"Average speed calculated: {direction} {window_name}={avg_speed:.1f} px/s ({len(recent_speeds)} samples)")
+                        else:
+                            # No data in window, set to 0
+                            self.traffic_speed_average.labels(
+                                direction=direction,
+                                window=window_name,
+                                app=self.config.app_name,
+                                instance=self.config.app_instance
+                            ).set(0)
+
+                # Clean up old speed history (older than 15 minutes)
+                cutoff_time = current_time - 900  # 15 minutes
+                for direction in self._speed_history:
+                    self._speed_history[direction] = [
+                        (timestamp, speed) for timestamp, speed in self._speed_history[direction]
+                        if timestamp >= cutoff_time
+                    ]
+
+            except Exception as e:
+                logger.error(f"Error in speed calculation: {e}")
+
     def start_http_server(self):
         """Start HTTP server for metrics exposition."""
         if not self.config.http_server_enabled or self._http_server_started:
@@ -405,6 +538,7 @@ class TrafficMetrics:
             logger.info("Final counter state saved")
 
         self.stop_flow_calculation()
+        self.stop_speed_calculation()
         logger.info("TrafficMetrics shutdown complete")
 
 
@@ -438,6 +572,7 @@ def initialize_metrics(config: Optional[MetricsConfig] = None) -> TrafficMetrics
         if config.http_server_enabled:
             _metrics_instance.start_http_server()
         _metrics_instance.start_flow_calculation()
+        _metrics_instance.start_speed_calculation()
     
     return _metrics_instance
 
