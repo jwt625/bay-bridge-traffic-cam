@@ -343,10 +343,21 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "traffic_flow_rate_per_minute",
-          "legendFormat": "{{direction}} flow rate",
+          "expr": "traffic_flow_rate_per_minute{direction=\"left\"}",
+          "legendFormat": "Oakland Bound",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "traffic_flow_rate_per_minute{direction=\"right\"}",
+          "legendFormat": "SF Bound",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Traffic Flow Rate (Vehicles/min)",
@@ -442,8 +453,8 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "rate(traffic_vehicles_total[5m]) * 60",
-          "legendFormat": "{{direction}} current rate",
+          "expr": "rate(traffic_vehicles_total{direction=\"left\"}[5m]) * 60",
+          "legendFormat": "Oakland Bound (current)",
           "range": true,
           "refId": "A"
         },
@@ -453,10 +464,32 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "avg_over_time((rate(traffic_vehicles_total[5m]) * 60)[1h:])",
-          "legendFormat": "{{direction}} 1h average",
+          "expr": "rate(traffic_vehicles_total{direction=\"right\"}[5m]) * 60",
+          "legendFormat": "SF Bound (current)",
           "range": true,
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time((rate(traffic_vehicles_total{direction=\"left\"}[5m]) * 60)[1h:])",
+          "legendFormat": "Oakland Bound (1h avg)",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time((rate(traffic_vehicles_total{direction=\"right\"}[5m]) * 60)[1h:])",
+          "legendFormat": "SF Bound (1h avg)",
+          "range": true,
+          "refId": "D"
         }
       ],
       "title": "Traffic Density Trend",
@@ -555,10 +588,21 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "traffic_vehicles_total",
-          "legendFormat": "{{direction}} direction",
+          "expr": "traffic_vehicles_total{direction=\"left\"}",
+          "legendFormat": "Oakland Bound",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "traffic_vehicles_total{direction=\"right\"}",
+          "legendFormat": "SF Bound",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Traffic Count by Direction",
@@ -917,7 +961,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Left Bound"
+              "options": "Oakland Bound"
             },
             "properties": [
               {
@@ -932,7 +976,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Right Bound"
+              "options": "SF Bound"
             },
             "properties": [
               {
@@ -979,7 +1023,7 @@
           },
           "editorMode": "code",
           "expr": "traffic_speed_current_pixels_per_second{app=\"bay-bridge-traffic-detector\",direction=\"left\"}",
-          "legendFormat": "Left Bound",
+          "legendFormat": "Oakland Bound",
           "range": true,
           "refId": "A"
         },
@@ -990,7 +1034,7 @@
           },
           "editorMode": "code",
           "expr": "traffic_speed_current_pixels_per_second{app=\"bay-bridge-traffic-detector\",direction=\"right\"}",
-          "legendFormat": "Right Bound",
+          "legendFormat": "SF Bound",
           "range": true,
           "refId": "B"
         }
@@ -1060,7 +1104,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Left Traffic"
+              "options": "Oakland Bound"
             },
             "properties": [
               {
@@ -1075,7 +1119,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Right Traffic"
+              "options": "SF Bound"
             },
             "properties": [
               {
@@ -1119,7 +1163,7 @@
           },
           "editorMode": "code",
           "expr": "traffic_speed_average_pixels_per_second{app=\"bay-bridge-traffic-detector\",direction=\"left\",window=\"5min\"}",
-          "legendFormat": "Left Traffic",
+          "legendFormat": "Oakland Bound",
           "range": true,
           "refId": "A"
         },
@@ -1130,7 +1174,7 @@
           },
           "editorMode": "code",
           "expr": "traffic_speed_average_pixels_per_second{app=\"bay-bridge-traffic-detector\",direction=\"right\",window=\"5min\"}",
-          "legendFormat": "Right Traffic",
+          "legendFormat": "SF Bound",
           "range": true,
           "refId": "B"
         }
