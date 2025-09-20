@@ -313,15 +313,21 @@ class EmbeddedPlotGenerator:
         # Create single plot for comparison
         fig = go.Figure()
 
-        # Color scheme: weekdays vs weekends, left vs right directions
+        # Color scheme: consistent with other plots (blue=left, orange=right)
+        # Use transparency/hue to distinguish weekdays (lighter) vs weekends (darker)
         def get_colors(weekday, direction):
-            # Weekdays: Monday-Friday, Weekends: Saturday-Sunday
-            if weekday in ['Saturday', 'Sunday']:
-                # Weekend colors
-                return '#ff7f0e' if direction == 'left' else '#ffbb78'  # Orange tones
+            if direction == 'left':
+                # Blue for left direction
+                if weekday in ['Saturday', 'Sunday']:
+                    return '#1f77b4'  # Darker blue for weekends
+                else:
+                    return '#aec7e8'  # Lighter blue for weekdays
             else:
-                # Weekday colors
-                return '#1f77b4' if direction == 'left' else '#aec7e8'  # Blue tones
+                # Orange for right direction
+                if weekday in ['Saturday', 'Sunday']:
+                    return '#ff7f0e'  # Darker orange for weekends
+                else:
+                    return '#ffbb78'  # Lighter orange for weekdays
 
         # Process each weekday
         for weekday in WEEKDAYS:

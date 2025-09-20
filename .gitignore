@@ -160,3 +160,4 @@ docs/_build/
 .cache/
 *.json
 *.txt
+analysis/*/*.html
