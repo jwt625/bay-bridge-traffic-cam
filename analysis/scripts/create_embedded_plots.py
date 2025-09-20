@@ -303,6 +303,138 @@ class EmbeddedPlotGenerator:
         
         return fig
 
+    def create_weekday_comparison_plot(self) -> go.Figure:
+        """Create a comparison plot showing all weekdays with 14 curves (7 days × 2 directions)."""
+
+        metric_name = 'traffic_flow_rate_per_minute'
+        if metric_name not in self.weekday_stats:
+            return None
+
+        # Create single plot for comparison
+        fig = go.Figure()
+
+        # Color scheme: weekdays vs weekends, left vs right directions
+        def get_colors(weekday, direction):
+            # Weekdays: Monday-Friday, Weekends: Saturday-Sunday
+            if weekday in ['Saturday', 'Sunday']:
+                # Weekend colors
+                return '#ff7f0e' if direction == 'left' else '#ffbb78'  # Orange tones
+            else:
+                # Weekday colors
+                return '#1f77b4' if direction == 'left' else '#aec7e8'  # Blue tones
+
+        # Process each weekday
+        for weekday in WEEKDAYS:
+            if weekday not in self.weekday_stats[metric_name]:
+                continue
+
+            weekday_data = self.weekday_stats[metric_name][weekday]
+
+            for direction in ['left', 'right']:
+                if direction not in weekday_data:
+                    continue
+
+                direction_data = weekday_data[direction]
+                raw_data = direction_data['raw_data']
+
+                if len(raw_data) < 2:
+                    continue
+
+                # Calculate mean for this weekday/direction
+                common_times = np.arange(0, 1440, 5)  # Every 5 minutes
+                interpolated_values = []
+
+                for day_data in raw_data:
+                    times = day_data['times']
+                    values = day_data['values']
+
+                    unique_indices = np.unique(times, return_index=True)[1]
+                    times_clean = times[unique_indices]
+                    values_clean = values[unique_indices]
+
+                    if len(times_clean) > 1:
+                        interp_values = np.interp(common_times, times_clean, values_clean)
+                        interpolated_values.append(interp_values)
+
+                if interpolated_values:
+                    mean_values = np.mean(interpolated_values, axis=0)
+                    std_values = np.std(interpolated_values, axis=0)
+
+                    # Convert minutes to time strings for hover
+                    time_strings = []
+                    for minutes in common_times:
+                        hours = int(minutes // 60)
+                        mins = int(minutes % 60)
+                        if hours == 0:
+                            time_str = f"12:{mins:02d} AM"
+                        elif hours < 12:
+                            time_str = f"{hours}:{mins:02d} AM"
+                        elif hours == 12:
+                            time_str = f"12:{mins:02d} PM"
+                        else:
+                            time_str = f"{hours-12}:{mins:02d} PM"
+                        time_strings.append(time_str)
+
+                    # Mean line for this weekday/direction
+                    color = get_colors(weekday, direction)
+
+                    fig.add_trace(
+                        go.Scatter(
+                            x=common_times,
+                            y=mean_values,
+                            mode='lines',
+                            name=f"{weekday} {direction.title()}",
+                            line=dict(color=color, width=2),  # Removed line style, using color only
+                            hovertemplate=f"<b>{weekday} - {direction.title()}</b><br>" +
+                                        "Time: %{customdata}<br>" +
+                                        "Mean: %{y:.1f} vehicles/min<br>" +
+                                        "Std: " + f"{np.mean(std_values):.1f}<br>" +
+                                        "<extra></extra>",
+                            customdata=time_strings
+                        )
+                    )
+
+        # Compact layout optimized for embedding
+        fig.update_layout(
+            title=dict(
+                text="Weekday Traffic Flow Comparison",
+                x=0.5,
+                font=dict(size=14)
+            ),
+            xaxis_title="Time",
+            yaxis_title="Flow Rate (vehicles/min)",
+            hovermode='x unified',
+            template='plotly_white',
+            width=480,
+            height=480,  # Same as other plots
+            margin=dict(l=50, r=20, t=50, b=120),  # Extra bottom margin for larger legend
+            legend=dict(
+                orientation="v",  # Vertical legend for better space usage
+                yanchor="top",
+                y=-0.25,  # Position below plot
+                xanchor="left",
+                x=0,
+                font=dict(size=8),  # Smaller font for 14 items
+                itemsizing='constant',
+                itemwidth=30
+            )
+        )
+
+        # Time axis with actual time format
+        fig.update_xaxes(
+            tickmode='array',
+            tickvals=[0, 120, 240, 360, 480, 600, 720, 840, 960, 1080, 1200, 1320, 1440],
+            ticktext=['12AM', '2AM', '4AM', '6AM', '8AM', '10AM', '12PM', '2PM', '4PM', '6PM', '8PM', '10PM', '12AM'],
+            tickfont=dict(size=9),
+            tickangle=45
+        )
+
+        fig.update_yaxes(
+            tickfont=dict(size=10)
+        )
+
+        return fig
+
 def main():
     """Generate embedded-friendly plots."""
     print("Creating embedded-friendly traffic pattern plots...")
@@ -318,13 +450,14 @@ def main():
     generator.calculate_weekday_statistics()
     
     print("Creating embedded plots...")
-    
+
+    # Generate individual weekday plots
     for weekday in WEEKDAYS:
         fig = generator.create_embedded_weekday_plot(weekday)
         if fig:
             filename = f"traffic_flow_rate_per_minute_{weekday.lower()}_pattern.html"
             filepath = PLOTS_DIR / filename
-            
+
             # Save with embedded-friendly configuration
             fig.write_html(
                 filepath,
@@ -336,7 +469,24 @@ def main():
                 }
             )
             print(f"Updated {weekday} embedded plot: {filepath}")
-    
+
+    # Generate weekday comparison plot
+    comparison_fig = generator.create_weekday_comparison_plot()
+    if comparison_fig:
+        filename = "traffic_flow_rate_weekday_comparison.html"
+        filepath = PLOTS_DIR / filename
+
+        comparison_fig.write_html(
+            filepath,
+            config={
+                'displayModeBar': True,
+                'displaylogo': False,
+                'modeBarButtonsToRemove': ['pan2d', 'lasso2d', 'select2d'],
+                'responsive': True
+            }
+        )
+        print(f"Updated weekday comparison plot: {filepath}")
+
     print("Embedded plots updated successfully!")
 
 if __name__ == "__main__":
