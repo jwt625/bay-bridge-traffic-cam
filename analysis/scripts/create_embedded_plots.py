@@ -394,29 +394,32 @@ class EmbeddedPlotGenerator:
                         )
                     )
 
-        # Compact layout optimized for embedding
+        # Larger layout for comparison plot (double width)
         fig.update_layout(
             title=dict(
                 text="Weekday Traffic Flow Comparison",
                 x=0.5,
-                font=dict(size=14)
+                font=dict(size=16)
             ),
             xaxis_title="Time",
             yaxis_title="Flow Rate (vehicles/min)",
             hovermode='x unified',
             template='plotly_white',
-            width=480,
-            height=480,  # Same as other plots
-            margin=dict(l=50, r=20, t=50, b=120),  # Extra bottom margin for larger legend
+            width=1000,  # Double width to occupy two tiles
+            height=480,  # Same height as other plots
+            margin=dict(l=50, r=150, t=50, b=80),  # Extra right margin for legend
             legend=dict(
-                orientation="v",  # Vertical legend for better space usage
+                orientation="v",  # Vertical legend on the right
                 yanchor="top",
-                y=-0.25,  # Position below plot
+                y=1,  # Top of plot area
                 xanchor="left",
-                x=0,
-                font=dict(size=8),  # Smaller font for 14 items
+                x=1.02,  # Position to the right of plot
+                font=dict(size=9),  # Readable font for 14 items
                 itemsizing='constant',
-                itemwidth=30
+                itemwidth=30,
+                bgcolor='rgba(255,255,255,0.8)',  # Semi-transparent background
+                bordercolor='rgba(0,0,0,0.2)',
+                borderwidth=1
             )
         )
 
