@@ -535,8 +535,8 @@ def main():
     
     print("\n🎨 Creating interactive visualizations...")
     
-    # Focus on primary traffic metrics for visualization
-    primary_metrics = ['traffic_vehicles_total', 'traffic_flow_rate_per_minute']
+    # Focus on flow rate metric for visualization
+    primary_metrics = ['traffic_flow_rate_per_minute']
     
     for metric_name in primary_metrics:
         if metric_name not in analyzer.weekday_stats:

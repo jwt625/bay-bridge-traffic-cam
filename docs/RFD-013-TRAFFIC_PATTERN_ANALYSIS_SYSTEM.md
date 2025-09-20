@@ -314,7 +314,7 @@ EXPORT_FORMATS = ['html', 'png', 'svg']
 
 ### 📊 **Deliverables Created**
 1. **Interactive Dashboard**: Professional web-based dashboard with navigation
-2. **16 Interactive Plots**: 8 plots each for 2 primary traffic metrics
+2. **8 Interactive Plots**: Traffic flow rate patterns for each day of the week + overview
 3. **Statistical Analysis**: Mean trends, ±1σ confidence bands, raw data overlays
 4. **Cached Dataset**: 341K+ data points in efficient Parquet format
 5. **Analysis Scripts**: Reusable Python codebase for future analysis
