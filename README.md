@@ -1,5 +1,9 @@
 # Bay Bridge Traffic Detection System
 
+<p align="center">
+  <img src="public/static/images/favicon.svg" alt="Bay Bridge Traffic Detection System" width="200"/>
+</p>
+
 A comprehensive real-time traffic detection and monitoring system for Bay Bridge with **Prometheus + Grafana integration** and **public dashboard access**:
 
 ## 🚀 Features
