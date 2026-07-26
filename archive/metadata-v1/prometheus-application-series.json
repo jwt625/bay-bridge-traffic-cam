@@ -1,0 +1,1978 @@
+{
+  "motion_detector_fps": {
+    "data": [
+      {
+        "__name__": "motion_detector_fps",
+        "app": "bay-bridge-traffic-detector",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      }
+    ],
+    "status": "success"
+  },
+  "system_status": {
+    "data": [
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250389",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250390",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250391",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250392",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250393",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250394",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250395",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250396",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250397",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250398",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250399",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250400",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250401",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250402",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250403",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250404",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250405",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250406",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250407",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_exported_instance": "import_1754250408",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "detector",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250409",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250410",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250411",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250412",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250413",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250414",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250415",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250416",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250417",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250418",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250419",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250420",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250421",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250422",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250423",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250424",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250425",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250426",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250427",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_exported_instance": "import_1754250428",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "tracker",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250429",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250430",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250431",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250432",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250433",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250434",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250435",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250436",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250437",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250438",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250439",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250440",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250441",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250442",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250443",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250444",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250445",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250446",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250447",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250448",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_exported_instance": "import_1754250449",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "system_status",
+        "app": "bay-bridge-traffic-detector",
+        "component": "webcam",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      }
+    ],
+    "status": "success"
+  },
+  "tracked_objects_active": {
+    "data": [
+      {
+        "__name__": "tracked_objects_active",
+        "app": "bay-bridge-traffic-detector",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      }
+    ],
+    "status": "success"
+  },
+  "traffic_flow_rate_per_minute": {
+    "data": [
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250276",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250277",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250278",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250279",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250280",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250281",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250282",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250283",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250284",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250285",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250286",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250287",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250288",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250289",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250290",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250291",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250292",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250293",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250294",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250295",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250296",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250297",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250298",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250299",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250300",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250301",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250302",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250303",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250304",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250305",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250306",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250307",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250308",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250309",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250310",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250311",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250312",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250313",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_flow_rate_per_minute",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      }
+    ],
+    "status": "success"
+  },
+  "traffic_speed_average_pixels_per_second": {
+    "data": [
+      {
+        "__name__": "traffic_speed_average_pixels_per_second",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector",
+        "window": "15min"
+      },
+      {
+        "__name__": "traffic_speed_average_pixels_per_second",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector",
+        "window": "1min"
+      },
+      {
+        "__name__": "traffic_speed_average_pixels_per_second",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector",
+        "window": "5min"
+      },
+      {
+        "__name__": "traffic_speed_average_pixels_per_second",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector",
+        "window": "15min"
+      },
+      {
+        "__name__": "traffic_speed_average_pixels_per_second",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector",
+        "window": "1min"
+      },
+      {
+        "__name__": "traffic_speed_average_pixels_per_second",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector",
+        "window": "5min"
+      }
+    ],
+    "status": "success"
+  },
+  "traffic_speed_current_pixels_per_second": {
+    "data": [
+      {
+        "__name__": "traffic_speed_current_pixels_per_second",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_speed_current_pixels_per_second",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      }
+    ],
+    "status": "success"
+  },
+  "traffic_vehicles_created": {
+    "data": [
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250313",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250314",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250315",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250316",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250317",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250318",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250319",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250320",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250321",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250322",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250323",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250324",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250325",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250326",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250327",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250328",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250329",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250330",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250331",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250332",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250333",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250334",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250335",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250336",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250337",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250338",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250339",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250340",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250341",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250342",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250343",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250344",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250345",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250346",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250347",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250348",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250349",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250350",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_created",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      }
+    ],
+    "status": "success"
+  },
+  "traffic_vehicles_total": {
+    "data": [
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250263",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250350",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250351",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250352",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250353",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250354",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250355",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250356",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250357",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250358",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250359",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250360",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250361",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250362",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250363",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250364",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250365",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250366",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250367",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250368",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_exported_instance": "import_1754250369",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "left",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250370",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250371",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250372",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250373",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250374",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250375",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250376",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250377",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250378",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250379",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250380",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250381",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250382",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250383",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250384",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250385",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250386",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250387",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250388",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_exported_instance": "import_1754250389",
+        "exported_instance": "main",
+        "exported_job": "imported_data",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      },
+      {
+        "__name__": "traffic_vehicles_total",
+        "app": "bay-bridge-traffic-detector",
+        "direction": "right",
+        "exported_instance": "main",
+        "instance": "host.docker.internal:9091",
+        "job": "bay-bridge-traffic-detector"
+      }
+    ],
+    "status": "success"
+  }
+}

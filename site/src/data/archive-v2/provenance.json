@@ -1,0 +1,21 @@
+{
+  "end": "2026-07-27T00:00:00+00:00",
+  "lighting_periods": {
+    "commissioning": "2026-02-19 through 2026-03-19",
+    "illuminated": "on or after 2026-03-20",
+    "pre_lights": "before 2026-02-19"
+  },
+  "non_destructive": true,
+  "purpose": "browser-sized derived snapshot for the static archive site",
+  "queries": {
+    "counter": "traffic_vehicles_total{exported_job=\"\"}",
+    "flow": "traffic_flow_rate_per_minute{exported_job=\"\"}",
+    "speed_15min": "traffic_speed_average_pixels_per_second{exported_job=\"\",window=\"15min\"}"
+  },
+  "raw_archive": false,
+  "source": "http://localhost:9090",
+  "start": "2025-08-01T00:00:00+00:00",
+  "step_seconds": 300,
+  "timezone": "America/Los_Angeles",
+  "warning": "This is a query-range analytical snapshot, not the lossless exact-sample Prometheus archive."
+}

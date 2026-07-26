@@ -1,0 +1,97 @@
+{
+  "containers": [
+    {
+      "created": "2025-08-16T05:46:55.151110836Z",
+      "id": "76ad1ca23cf7167f333075b73a499eca7dd3c4e8e8961a30381fbe13dc262233",
+      "image": "prom/prometheus:latest",
+      "image_digest": "sha256:9abc6cf6aea7710d163dbb28d8eeb7dc5baef01e38fa4cd146a406dd9f07f70d",
+      "mounts": [
+        {
+          "destination": "/etc/prometheus/prometheus.yml",
+          "mode": "ro",
+          "name": null,
+          "rw": false,
+          "source": "/Users/wentaojiang/Documents/GitHub/PlayGround/20250802_bay_bridge_traffic_cam/prometheus.yml",
+          "type": "bind"
+        },
+        {
+          "destination": "/prometheus",
+          "mode": "z",
+          "name": "20250802_bay_bridge_traffic_cam_prometheus-storage",
+          "rw": true,
+          "source": "/var/lib/docker/volumes/20250802_bay_bridge_traffic_cam_prometheus-storage/_data",
+          "type": "volume"
+        }
+      ],
+      "name": "prometheus",
+      "ports": {
+        "9090/tcp": [
+          {
+            "HostIp": "0.0.0.0",
+            "HostPort": "9090"
+          }
+        ]
+      },
+      "state": {
+        "Running": true,
+        "StartedAt": "2026-06-18T15:48:03.980821667Z",
+        "Status": "running"
+      }
+    },
+    {
+      "created": "2025-09-01T03:34:19.266939304Z",
+      "id": "aad313550e269c545f24d41bb834013b3d480422f9a400aab90c1d602c3d5919",
+      "image": "grafana/grafana:latest",
+      "image_digest": "sha256:06dc8d60e184705e5dc00e051a6d92342a44010d7d5e538d0a36339e85abb9b7",
+      "mounts": [
+        {
+          "destination": "/etc/grafana/grafana.ini",
+          "mode": "rw",
+          "name": null,
+          "rw": true,
+          "source": "/Users/wentaojiang/Documents/GitHub/bay-bridge-traffic-cam/grafana/grafana.ini",
+          "type": "bind"
+        },
+        {
+          "destination": "/etc/grafana/provisioning",
+          "mode": "rw",
+          "name": null,
+          "rw": true,
+          "source": "/Users/wentaojiang/Documents/GitHub/bay-bridge-traffic-cam/grafana/provisioning",
+          "type": "bind"
+        },
+        {
+          "destination": "/var/lib/grafana",
+          "mode": "z",
+          "name": "bay-bridge-traffic-cam_grafana-storage",
+          "rw": true,
+          "source": "/var/lib/docker/volumes/bay-bridge-traffic-cam_grafana-storage/_data",
+          "type": "volume"
+        },
+        {
+          "destination": "/var/lib/grafana/dashboards",
+          "mode": "rw",
+          "name": null,
+          "rw": true,
+          "source": "/Users/wentaojiang/Documents/GitHub/bay-bridge-traffic-cam/grafana/dashboards",
+          "type": "bind"
+        }
+      ],
+      "name": "grafana",
+      "ports": {
+        "3000/tcp": [
+          {
+            "HostIp": "0.0.0.0",
+            "HostPort": "3000"
+          }
+        ]
+      },
+      "state": {
+        "Running": true,
+        "StartedAt": "2026-06-18T15:48:03.982009792Z",
+        "Status": "running"
+      }
+    }
+  ],
+  "non_destructive": true
+}

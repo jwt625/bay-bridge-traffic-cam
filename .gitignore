@@ -52,8 +52,13 @@ venv.bak/
 # Package Managers
 # ---------------
 # uv
-uv.lock
 .uv/
+
+# Node / static site
+node_modules/
+site/node_modules/
+site/.observablehq/
+site/dist/
 
 # pip
 pip-log.txt
@@ -161,3 +166,15 @@ docs/_build/
 *.json
 *.txt
 analysis/*/*.html
+
+# Versioned static-site source and provenance are intentionally tracked.
+!site/package.json
+!site/package-lock.json
+!site/src/data/**/*.json
+!archive/**/*.json
+!archive/**/*.txt
+
+# Native source backups and TSDB export workspaces are preserved locally and
+# published separately; never add them to the code repository.
+archive/source-*/
+archive/export-work-*/

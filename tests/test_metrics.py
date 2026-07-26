@@ -71,7 +71,8 @@ class TestTrafficMetrics(unittest.TestCase):
         self.config = MetricsConfig(
             enabled=True,
             http_server_enabled=False,  # Don't start HTTP server in tests
-            debug=True
+            debug=True,
+            persist_state=False,  # Unit tests must never touch collector state.
         )
         self.metrics = TrafficMetrics(self.config)
     
@@ -124,7 +125,14 @@ class TestTrafficMetrics(unittest.TestCase):
         
         # Manually trigger flow calculation (simulate time passage)
         self.metrics._last_flow_calculation = time.time() - 60  # 1 minute ago
-        self.metrics._flow_calculation_worker()
+        # Exercise one calculation pass without entering the long-running worker
+        # loop used by the live collector.
+        with patch.object(
+            self.metrics._stop_flow_calculation,
+            "wait",
+            side_effect=[False, True],
+        ):
+            self.metrics._flow_calculation_worker()
         
         # Check that flow rates were calculated
         metrics_text = self.metrics.get_metrics_text()
@@ -132,7 +140,11 @@ class TestTrafficMetrics(unittest.TestCase):
     
     def test_disabled_metrics(self):
         """Test that metrics are not recorded when disabled."""
-        disabled_config = MetricsConfig(enabled=False)
+        disabled_config = MetricsConfig(
+            enabled=False,
+            http_server_enabled=False,
+            persist_state=False,
+        )
         disabled_metrics = TrafficMetrics(disabled_config)
         
         # Try to record metrics

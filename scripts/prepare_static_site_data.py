@@ -41,6 +41,9 @@ WEEKDAYS = [
     "Saturday",
     "Sunday",
 ]
+LIGHTING_BURN_IN_DATE = date(2026, 2, 19)
+LIGHTING_PUBLIC_LAUNCH_DATE = date(2026, 3, 20)
+LIGHTING_PERIODS = ("pre_lights", "commissioning", "illuminated")
 
 
 @dataclass(frozen=True)
@@ -152,6 +155,21 @@ def add_local_time_columns(frame: pd.DataFrame) -> pd.DataFrame:
     return result
 
 
+def lighting_period_for_date(day: date) -> str:
+    """Classify a local date against the documented Bay Lights timeline."""
+    if day < LIGHTING_BURN_IN_DATE:
+        return "pre_lights"
+    if day < LIGHTING_PUBLIC_LAUNCH_DATE:
+        return "commissioning"
+    return "illuminated"
+
+
+def add_lighting_period(frame: pd.DataFrame) -> pd.DataFrame:
+    result = frame.copy()
+    result["lighting_period"] = result["local_date"].map(lighting_period_for_date)
+    return result
+
+
 def build_hourly(flow: pd.DataFrame) -> pd.DataFrame:
     data = add_local_time_columns(flow)
     # Bucket in UTC so the repeated Pacific 01:00 hour at DST fallback remains
@@ -166,16 +184,51 @@ def build_hourly(flow: pd.DataFrame) -> pd.DataFrame:
         upper=1
     )
     hourly["hour_local"] = hourly["hour_utc"].dt.tz_convert(PACIFIC)
+    hourly["local_date"] = hourly["hour_local"].dt.date
+    hourly["lighting_period"] = hourly["local_date"].map(lighting_period_for_date)
     hourly["estimated_detections"] = hourly["mean_flow"] * 60 * hourly["coverage"]
     return hourly[
         [
             "hour_utc",
             "hour_local",
+            "lighting_period",
             "direction",
             "mean_flow",
             "median_flow",
             "max_flow",
             "estimated_detections",
+            "sample_count",
+            "coverage",
+        ]
+    ]
+
+
+def build_half_hour(flow: pd.DataFrame) -> pd.DataFrame:
+    """Aggregate five-minute flow samples into unambiguous 30-minute bins."""
+    data = flow.copy()
+    # Bucket in UTC so both occurrences of a repeated Pacific half-hour during
+    # DST fallback remain distinct.
+    data["half_hour_utc"] = data["timestamp_utc"].dt.floor("30min")
+    result = (
+        data.groupby(["half_hour_utc", "direction"], observed=True)["value"]
+        .agg(mean_flow="mean", sample_count="size")
+        .reset_index()
+    )
+    result["coverage"] = (
+        result["sample_count"] / (30 * 60 / STEP_SECONDS)
+    ).clip(upper=1)
+    result["half_hour_local"] = result["half_hour_utc"].dt.tz_convert(PACIFIC)
+    result["local_date"] = result["half_hour_local"].dt.date
+    result["lighting_period"] = result["local_date"].map(
+        lighting_period_for_date
+    )
+    return result[
+        [
+            "half_hour_utc",
+            "half_hour_local",
+            "lighting_period",
+            "direction",
+            "mean_flow",
             "sample_count",
             "coverage",
         ]
@@ -223,20 +276,31 @@ def build_daily(flow: pd.DataFrame, counter: pd.DataFrame) -> pd.DataFrame:
     )
     daily["weekday"] = pd.to_datetime(daily["local_date"]).dt.day_name()
     daily["complete_day"] = daily["coverage"] >= 0.95
+    daily["lighting_period"] = daily["local_date"].map(lighting_period_for_date)
     return daily
 
 
 def build_weekday_profile(flow: pd.DataFrame, daily: pd.DataFrame) -> pd.DataFrame:
-    data = add_local_time_columns(flow)
+    data = add_lighting_period(add_local_time_columns(flow))
     complete_keys = daily.loc[
         daily["complete_day"], ["local_date", "direction"]
     ].drop_duplicates()
     data = data.merge(complete_keys, on=["local_date", "direction"], how="inner")
 
+    data = pd.concat(
+        [data.assign(analysis_period="all"), data.assign(analysis_period=data["lighting_period"])],
+        ignore_index=True,
+    )
     profile = (
-        data.groupby(["weekday", "weekday_number", "quarter_hour", "direction"])[
-            "value"
-        ]
+        data.groupby(
+            [
+                "analysis_period",
+                "weekday",
+                "weekday_number",
+                "quarter_hour",
+                "direction",
+            ]
+        )["value"]
         .agg(
             mean="mean",
             median="median",
@@ -247,7 +311,9 @@ def build_weekday_profile(flow: pd.DataFrame, daily: pd.DataFrame) -> pd.DataFra
             sample_count="size",
         )
         .reset_index()
-        .sort_values(["weekday_number", "quarter_hour", "direction"])
+        .sort_values(
+            ["analysis_period", "weekday_number", "quarter_hour", "direction"]
+        )
     )
     profile["time_label"] = profile["quarter_hour"].map(
         lambda minute: f"{minute // 60:02d}:{minute % 60:02d}"
@@ -256,15 +322,25 @@ def build_weekday_profile(flow: pd.DataFrame, daily: pd.DataFrame) -> pd.DataFra
 
 
 def build_speed_profile(speed: pd.DataFrame, daily: pd.DataFrame) -> pd.DataFrame:
-    data = add_local_time_columns(speed)
+    data = add_lighting_period(add_local_time_columns(speed))
     complete_dates = set(
         daily.loc[daily["complete_day"], "local_date"].drop_duplicates()
     )
     data = data[data["local_date"].isin(complete_dates)]
+    data = pd.concat(
+        [data.assign(analysis_period="all"), data.assign(analysis_period=data["lighting_period"])],
+        ignore_index=True,
+    )
     return (
-        data.groupby(["weekday", "weekday_number", "quarter_hour", "direction"])[
-            "value"
-        ]
+        data.groupby(
+            [
+                "analysis_period",
+                "weekday",
+                "weekday_number",
+                "quarter_hour",
+                "direction",
+            ]
+        )["value"]
         .agg(
             mean="mean",
             median="median",
@@ -273,7 +349,101 @@ def build_speed_profile(speed: pd.DataFrame, daily: pd.DataFrame) -> pd.DataFram
             sample_count="size",
         )
         .reset_index()
-        .sort_values(["weekday_number", "quarter_hour", "direction"])
+        .sort_values(
+            ["analysis_period", "weekday_number", "quarter_hour", "direction"]
+        )
+    )
+
+
+def build_night_noise(flow: pd.DataFrame) -> pd.DataFrame:
+    """Summarize the fixed 22:00–05:00 local window without interpolation."""
+    data = add_local_time_columns(flow)
+    data = data[data["hour"].isin([22, 23, 0, 1, 2, 3, 4])].copy()
+    shifted = data["timestamp_local"] - pd.to_timedelta(
+        (data["hour"] < 5).astype(int), unit="D"
+    )
+    data["night_date"] = shifted.dt.date
+
+    grouped = (
+        data.groupby(["night_date", "direction"], observed=True)["value"]
+        .agg(
+            mean_flow="mean",
+            median_flow="median",
+            std_flow="std",
+            p95_flow=lambda values: values.quantile(0.95),
+            max_flow="max",
+            median_abs_change=lambda values: values.diff().abs().median(),
+            sample_count="size",
+        )
+        .reset_index()
+    )
+    grouped["spike_excess"] = grouped["p95_flow"] - grouped["median_flow"]
+    grouped["coverage"] = (grouped["sample_count"] / (7 * 3600 / STEP_SECONDS)).clip(
+        upper=1
+    )
+    grouped["lighting_period"] = grouped["night_date"].map(
+        lighting_period_for_date
+    )
+    return grouped
+
+
+def build_lighting_impact_summary(night_noise: pd.DataFrame) -> pd.DataFrame:
+    complete = night_noise[night_noise["coverage"] >= 0.95]
+    return (
+        complete.groupby(["lighting_period", "direction"], observed=True)
+        .agg(
+            nights=("night_date", "nunique"),
+            median_night_mean=("mean_flow", "median"),
+            median_night_std=("std_flow", "median"),
+            median_night_p95=("p95_flow", "median"),
+            median_night_max=("max_flow", "median"),
+            median_spike_excess=("spike_excess", "median"),
+            median_abs_change=("median_abs_change", "median"),
+        )
+        .reset_index()
+    )
+
+
+def build_lighting_events() -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            {
+                "local_date": LIGHTING_BURN_IN_DATE,
+                "event": "Documented 48,000-LED burn-in begins (approximate)",
+                "event_type": "external",
+                "note": (
+                    "A February 26 report said all LEDs had been twinkling 24/7 "
+                    "for about one week; February 19 is used as the analysis boundary."
+                ),
+                "source_url": (
+                    "https://www.sfchronicle.com/sf/article/"
+                    "bay-lights-return-bay-bridge-21944006.php/"
+                ),
+            },
+            {
+                "local_date": date(2026, 3, 8),
+                "event": "Detector-observed high-noise onset",
+                "event_type": "derived",
+                "note": (
+                    "Nighttime flow spikes rise sharply during commissioning; "
+                    "this is a dataset observation, not an independently reported switch."
+                ),
+                "source_url": "",
+            },
+            {
+                "local_date": LIGHTING_PUBLIC_LAUNCH_DATE,
+                "event": "Official public Grand Lighting",
+                "event_type": "external",
+                "note": (
+                    "The primary north-facing installation entered nightly operation "
+                    "from dusk until dawn."
+                ),
+                "source_url": (
+                    "https://illuminate.org/2026/02/19/"
+                    "the-bay-lights-to-return-friday-march-20-2026/"
+                ),
+            },
+        ]
     )
 
 
@@ -362,6 +532,8 @@ def build_summary(
         "positive_counter_increments_5min": int(positive_increments),
         "left_mean_flow": round(float(direction_means.get("left", math.nan)), 2),
         "right_mean_flow": round(float(direction_means.get("right", math.nan)), 2),
+        "lighting_burn_in_boundary": LIGHTING_BURN_IN_DATE.isoformat(),
+        "lighting_public_launch": LIGHTING_PUBLIC_LAUNCH_DATE.isoformat(),
         "source_resolution": "5-minute Prometheus query-range snapshot",
         "raw_archive_status": "pending immutable TSDB copy",
         "data_interpretation": "algorithmic crossing detections; not ground truth",
@@ -458,9 +630,13 @@ def main() -> None:
     speed = queried["speed_15min"]
 
     hourly = build_hourly(flow)
+    half_hour = build_half_hour(flow)
     daily = build_daily(flow, counter)
     weekday = build_weekday_profile(flow, daily)
     speed_profile = build_speed_profile(speed, daily)
+    night_noise = build_night_noise(flow)
+    lighting_impact = build_lighting_impact_summary(night_noise)
+    lighting_events = build_lighting_events()
     monthly = build_monthly(daily)
     coverage = build_coverage_intervals(flow)
     resets = build_reset_events(counter)
@@ -476,6 +652,14 @@ def main() -> None:
         "queries": {spec.name: spec.expression for spec in QUERY_SPECS},
         "non_destructive": True,
         "raw_archive": False,
+        "lighting_periods": {
+            "pre_lights": f"before {LIGHTING_BURN_IN_DATE.isoformat()}",
+            "commissioning": (
+                f"{LIGHTING_BURN_IN_DATE.isoformat()} through "
+                f"{(LIGHTING_PUBLIC_LAUNCH_DATE - pd.Timedelta(days=1)).isoformat()}"
+            ),
+            "illuminated": f"on or after {LIGHTING_PUBLIC_LAUNCH_DATE.isoformat()}",
+        },
         "warning": (
             "This is a query-range analytical snapshot, not the lossless exact-sample "
             "Prometheus archive."
@@ -487,9 +671,13 @@ def main() -> None:
         (
             ("summary.csv", summary),
             ("hourly.csv", hourly),
+            ("half-hour.csv", half_hour),
             ("daily.csv", daily),
             ("weekday-profile.csv", weekday),
             ("speed-profile.csv", speed_profile),
+            ("night-noise.csv", night_noise),
+            ("lighting-impact-summary.csv", lighting_impact),
+            ("lighting-events.csv", lighting_events),
             ("monthly.csv", monthly),
             ("coverage-gaps.csv", coverage),
             ("counter-resets.csv", resets),

@@ -1,0 +1,18 @@
+{
+  "name": "bay-bridge-traffic-archive",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "observable preview --port 4173",
+    "build": "observable build",
+    "clean-check": "observable build --help >/dev/null"
+  },
+  "dependencies": {
+    "@observablehq/plot": "0.6.17",
+    "d3": "7.9.0"
+  },
+  "devDependencies": {
+    "@observablehq/framework": "1.13.4"
+  }
+}

@@ -1,8 +1,50 @@
-# Bay Bridge Traffic Detection System
+# Bay Bridge Traffic Camera
+
+> **Archive transition (July 2026):** This project is being converted from a
+> Mac-hosted live Grafana dashboard into a permanent static data exhibit. The
+> historical Prometheus and Grafana volumes have been copied and
+> checksum-verified; nothing in the original runtime is being deleted. The new
+> site, exact-sample export, external validation, and migration record are
+> documented in
+> [RFD-014](docs/RFD-014-HISTORICAL_TRAFFIC_ARCHIVE_STATIC_OPEN_DATA_SITE.md).
+>
+> Detector counts are experimental computer-vision outputs, not official
+> traffic counts. Precision, recall, and false-positive/negative rates are
+> unknown. The site defaults to reversible direction-specific reference
+> scaling and always offers raw detector values.
 
 <p align="center">
   <img src="public/static/images/favicon.svg" alt="Bay Bridge Traffic Detection System" width="200"/>
 </p>
+
+An open-source camera-based record of traffic on the San Francisco-Oakland Bay
+Bridge, with a reproducible static analysis site and an exact Prometheus sample
+archive.
+
+## Historical archive
+
+- Static site source: [`site/`](site/)
+- Exact and derived public dataset:
+  [Hugging Face — `jwt625/bay-bridge-traffic-cam`](https://huggingface.co/datasets/jwt625/bay-bridge-traffic-cam)
+- Archive/export tooling: [`scripts/`](scripts/)
+- Migration proposal and append-only DevLog:
+  [`docs/RFD-014-HISTORICAL_TRAFFIC_ARCHIVE_STATIC_OPEN_DATA_SITE.md`](docs/RFD-014-HISTORICAL_TRAFFIC_ARCHIVE_STATIC_OPEN_DATA_SITE.md)
+- Code license: [MIT](LICENSE)
+- Published dataset license: [CC BY 4.0](DATA_LICENSE.md)
+- Citation metadata: [`CITATION.cff`](CITATION.cff)
+
+The raw release preserves exact millisecond timestamps, values, and Prometheus
+labels in metric/month Parquet shards. Smaller five-minute and half-hour
+derived tables power the browser experience. Native TSDB and Grafana backups
+remain private because they may include operational metadata or credentials.
+
+## Legacy live system
+
+The material below documents the original detector and apartment-hosted
+Prometheus/Grafana system. It is intentionally retained as historical and
+reproducibility context. Commands referring to the public Grafana path describe
+the legacy deployment and should not be used to recreate or replace the
+verified archive volumes.
 
 A comprehensive real-time traffic detection and monitoring system for Bay Bridge with **Prometheus + Grafana integration** and **public dashboard access**:
 

@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software or dataset, please cite it as below."
+title: "Bay Bridge Traffic Camera"
+type: software
+authors:
+  - family-names: Jiang
+    given-names: Wentao
+repository-code: "https://github.com/jwt625/bay-bridge-traffic-cam"
+url: "https://bay-bridge-traffic.com"
+license: MIT
+version: 1.0.0
+date-released: 2026-07-26
+keywords:
+  - San Francisco-Oakland Bay Bridge
+  - traffic
+  - computer vision
+  - Prometheus
+  - open data
+abstract: >-
+  A window-camera traffic detector, reproducible historical analysis, static
+  data explorer, and exact Prometheus time-series archive covering 2025-2026.

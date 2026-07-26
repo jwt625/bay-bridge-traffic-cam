@@ -1,0 +1,92 @@
+{
+  "data": {
+    "headStats": {
+      "chunkCount": 46,
+      "maxTime": 1785093872529,
+      "minTime": 1785088802565,
+      "numLabelPairs": 7,
+      "numSeries": 5
+    },
+    "labelValueCountByLabelName": [
+      {
+        "name": "__name__",
+        "value": 5
+      },
+      {
+        "name": "instance",
+        "value": 1
+      },
+      {
+        "name": "job",
+        "value": 1
+      }
+    ],
+    "memoryInBytesByLabelName": [
+      {
+        "name": "instance",
+        "value": 175
+      },
+      {
+        "name": "job",
+        "value": 160
+      },
+      {
+        "name": "__name__",
+        "value": 153
+      }
+    ],
+    "seriesCountByLabelValuePair": [
+      {
+        "name": "instance=host.docker.internal:9091",
+        "value": 5
+      },
+      {
+        "name": "job=bay-bridge-traffic-detector",
+        "value": 5
+      },
+      {
+        "name": "__name__=scrape_samples_post_metric_relabeling",
+        "value": 1
+      },
+      {
+        "name": "__name__=scrape_series_added",
+        "value": 1
+      },
+      {
+        "name": "__name__=up",
+        "value": 1
+      },
+      {
+        "name": "__name__=scrape_duration_seconds",
+        "value": 1
+      },
+      {
+        "name": "__name__=scrape_samples_scraped",
+        "value": 1
+      }
+    ],
+    "seriesCountByMetricName": [
+      {
+        "name": "scrape_samples_post_metric_relabeling",
+        "value": 1
+      },
+      {
+        "name": "scrape_series_added",
+        "value": 1
+      },
+      {
+        "name": "up",
+        "value": 1
+      },
+      {
+        "name": "scrape_duration_seconds",
+        "value": 1
+      },
+      {
+        "name": "scrape_samples_scraped",
+        "value": 1
+      }
+    ]
+  },
+  "status": "success"
+}

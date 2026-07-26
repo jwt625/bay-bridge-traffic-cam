@@ -1,0 +1,11 @@
+{
+  "caltrans_aadt_url": "https://dot.ca.gov/-/media/dot-media/programs/traffic-operations/documents/census/2024/2024-traffic-volumes-ca-a11y.xlsx",
+  "caltrans_peak_hour_url": "https://dot.ca.gov/-/media/dot-media/programs/traffic-operations/documents/census/2024/2024-ca-peak-hours-a11y.xlsx",
+  "detector_baseline": "complete pre-lights days before 2026-02-19",
+  "detector_daily_source": "site/src/data/archive-v2/daily.csv",
+  "mtc_monthly_url": "https://mtc.ca.gov/sites/default/files/documents/2026-07/Monthly-Transportation-Statistics-07-11-2026.xlsx?cb=dfd1a873",
+  "non_destructive": true,
+  "purpose": "high-level third-party validation; not detector calibration",
+  "retrieved_utc": "2026-07-26T19:55:00.304083+00:00",
+  "warning": "Reference multipliers average over time and cannot correct hour-, weather-, congestion-, direction-, or lighting-dependent errors."
+}

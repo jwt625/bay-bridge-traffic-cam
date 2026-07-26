@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "isDeleted": false,
+    "isStarred": false,
+    "orgId": 1,
+    "slug": "",
+    "sortMeta": 0,
+    "tags": [
+      "bay-bridge",
+      "computer-vision",
+      "monitoring",
+      "traffic"
+    ],
+    "title": "Bay Bridge Traffic Detection System",
+    "type": "dash-db",
+    "uid": "bay-bridge-traffic",
+    "uri": "db/bay-bridge-traffic-detection-system",
+    "url": "/d/bay-bridge-traffic/bay-bridge-traffic-detection-system"
+  }
+]

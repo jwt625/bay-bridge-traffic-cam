@@ -1,0 +1,4 @@
+local_date,event,event_type,note,source_url
+2026-02-19,"Documented 48,000-LED burn-in begins (approximate)",external,A February 26 report said all LEDs had been twinkling 24/7 for about one week; February 19 is used as the analysis boundary.,https://www.sfchronicle.com/sf/article/bay-lights-return-bay-bridge-21944006.php/
+2026-03-08,Detector-observed high-noise onset,derived,"Nighttime flow spikes rise sharply during commissioning; this is a dataset observation, not an independently reported switch.",
+2026-03-20,Official public Grand Lighting,external,The primary north-facing installation entered nightly operation from dusk until dawn.,https://illuminate.org/2026/02/19/the-bay-lights-to-return-friday-march-20-2026/

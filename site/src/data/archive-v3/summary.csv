@@ -1,0 +1,20 @@
+key,value
+collection_start_utc,2025-08-07T18:05:00+00:00
+collection_end_utc,2026-07-25T04:20:00+00:00
+collection_start_local,2025-08-07T11:05:00-07:00
+collection_end_local,2026-07-24T21:20:00-07:00
+observed_span_days,351.43
+flow_samples_5min,197198
+counter_samples_5min,197204
+queried_samples_5min,394402
+complete_calendar_days,335
+observed_calendar_days,345
+coverage_gaps_over_10min,29
+positive_counter_increments_5min,45910702
+left_mean_flow,29.94
+right_mean_flow,61.14
+lighting_burn_in_boundary,2026-02-19
+lighting_public_launch,2026-03-20
+source_resolution,5-minute Prometheus query-range snapshot
+raw_archive_status,pending immutable TSDB copy
+data_interpretation,algorithmic crossing detections; not ground truth

@@ -2,7 +2,7 @@
 
 **Authors:** Wentao Jiang, Codex  
 **Date:** 2026-07-26  
-**Status:** 🟡 PROPOSED — Inspection Complete, Source Preservation Pending  
+**Status:** 🟡 IMPLEMENTATION — Dataset Published, Deployment Preview Pending
 **Related:** RFD-004 (Prometheus/Grafana Monitoring), RFD-006 (Data Persistence
 Incident), RFD-007 (Historical Import), RFD-010 (Prometheus Retention), RFD-012
 (Speed Metrics), RFD-013 (Traffic Pattern Analysis)
@@ -107,15 +107,367 @@ analysis, insights, methodology, and reproducible downloads.
 - [x] Adopted an explicit non-destructive preservation policy.
 - [x] Approved the proposed Observable Framework, Cloudflare Pages, and Hugging
   Face architecture for implementation.
-- [ ] Create immutable backups of the active Prometheus and Grafana volumes.
-- [ ] Implement the exact-sample export and normalization pipeline.
-- [ ] Regenerate analysis from the full archive.
-- [ ] Build, validate, and deploy the static site.
-- [ ] Publish the dataset and open-source release.
+- [x] Create verified backups of the active Prometheus and Grafana volumes.
+- [~] Implement the exact-sample export and normalization pipeline. A read-only
+  five-minute derived snapshot exists; exact full-resolution export must run
+  against an immutable TSDB copy.
+- [x] Regenerate the first analysis snapshot from the full observed period.
+- [~] Build, validate, and deploy the static site. The local static preview is
+  ready; public deployment has not been attempted.
+- [x] Publish the dataset. The code release is prepared and scanned; making the
+  currently private GitHub repository public remains a separate approval gate.
 - [ ] Retire the live tunnel and monitoring containers after verification.
 
-No containers, Docker volumes, repository configuration, remote services, or
-datasets were changed during the inspection.
+No containers, Docker volumes, remote services, or published datasets were
+changed during inspection or implementation. All repository work is additive,
+except for disposable static build output.
+
+### Implementation progress — 2026-07-26
+
+#### Preservation and inventory
+
+- [x] Added the explicit non-destructive preservation policy above. No existing
+  source archive, TSDB block, dashboard, September analysis artifact, container,
+  domain configuration, or remote service is to be deleted or replaced.
+- [x] Added `scripts/capture_archive_inventory.py`, which captures a sanitized,
+  read-only service inventory into a new versioned directory and refuses to
+  overwrite an existing capture.
+- [x] Captured `archive/metadata-v1/`, including container/image/mount metadata,
+  Prometheus flags, build information, TSDB status, block inventory,
+  application series, Grafana health, dashboard search results, the exported
+  dashboard, and a checksum manifest.
+- [x] Omitted container environment variables from the inventory to avoid
+  copying credentials into the repository.
+- [x] Copied the active Prometheus TSDB and Grafana data volumes into
+  `archive/source-v1/` after explicit user approval. The copy operation paused
+  each container only while its volume was copied, always resumed both
+  containers, and then checked Prometheus readiness and Grafana health.
+- [x] Verified all 371 files against the generated SHA-256/byte-size manifest:
+  689,516,685 bytes of Prometheus state plus 52,795,392 bytes of Grafana state,
+  for 742,312,077 bytes total.
+- [x] Ran SQLite `PRAGMA quick_check` on the copied Grafana database; it
+  returned `ok`.
+- [x] Created a separate APFS copy-on-write export workspace under
+  `archive/export-work-v1/`. `promtool tsdb list` and an exact-sample dump both
+  succeeded there. The canonical source backup remained unchanged and all 371
+  checksums were reverified afterward.
+- [x] Added ignore rules for `archive/source-*` and
+  `archive/export-work-*`, preventing native operational backups from entering
+  Git or a public data release.
+
+#### Exact export and release safety — 2026-07-26
+
+- [x] Added `scripts/backup_runtime_volumes.py`, which resolves the two exact
+  expected volumes, refuses an existing output directory, pauses for the
+  shortest copy interval, resumes in a `finally` path, verifies health, and
+  writes checksums.
+- [x] Added `scripts/export_exact_tsdb.py`. It streams the eight application
+  metric families from the copied TSDB through the exact Prometheus image,
+  preserves millisecond timestamps and original label JSON, writes
+  metric/month Zstandard Parquet shards, refuses overwrite, and produces
+  provenance plus a SHA-256 manifest.
+- [x] Validated a ten-minute smoke export: 240 exact flow samples, both
+  directions, 14 typed columns, and a first timestamp of
+  `2026-07-25T02:00:02.483Z`.
+- [x] Added `scripts/validate_exact_dataset.py` to independently check every
+  manifest entry, Parquet schema, row count, metric set, and timestamp
+  statistics before upload.
+- [x] Completed the export from the copy-on-write workspace into a separate
+  sibling staging directory. It did not read from the live volume. The result
+  contains 108,644,312 exact samples across 94 metric/month Parquet shards and
+  all eight intended metric families.
+- [x] Independently validated all 95 staging manifest entries, schemas, row
+  counts, metric names, and timestamp statistics. The exact observed range is
+  `2025-08-07T18:00:00.471Z` through
+  `2026-07-25T02:24:42.527Z`.
+- [x] Audited all 190 unique raw label sets. Values were limited to the expected
+  detector app, directions, speed windows, component names, local scrape
+  endpoint, and historical import identifiers. Direct samples number
+  108,630,056; imported-label samples number 14,256.
+- [x] Reverified all 371 canonical source-backup checksums after the export.
+- [x] Built a separate sanitized public package: 119 manifested files totaling
+  616,522,063 bytes. All 94 published Parquet shards are byte-identical to the
+  validated staging export. The package contains no absolute local paths.
+- [x] Ran Gitleaks over the complete 616 MB release; zero findings.
+- [x] Published the new public Hugging Face dataset
+  [`jwt625/bay-bridge-traffic-cam`](https://huggingface.co/datasets/jwt625/bay-bridge-traffic-cam).
+  Hugging Face committed all 120 local release files (616.5 MB); its generated
+  `.gitattributes` is the only additional repository file.
+- [x] Verified that all 120 remote paths match the local release, downloaded
+  the remote dataset card, manifest, and export provenance byte-for-byte, and
+  downloaded five representative Parquet shards spanning metrics/months.
+  Their SHA-256 values match the local validated package.
+- [ ] Production replacement remains gated on a hosted site preview and user
+  inspection. No DNS, tunnel, proxy, or existing public page has changed.
+- [x] Confirmed Hugging Face CLI authentication as user `jwt625`; the target
+  dataset repository does not currently exist, so upload cannot accidentally
+  overwrite an existing dataset.
+- [x] Confirmed the ignored local `prometheus.yml` is not tracked and has no
+  Git history. It contains a live remote-write credential and is therefore
+  excluded from backups intended for publication. Rotate that credential only
+  as a later explicit production-retirement action.
+- [x] Scanned all 15 Git commits and the complete tracked/untracked publication
+  candidate tree with Gitleaks 8.30.1. Both scans returned zero findings.
+- [x] Added an MIT software license, CC BY 4.0 data-license notice, and
+  `CITATION.cff`; preserved the original live-system README as a clearly
+  labeled historical section.
+
+#### Derived archive preparation
+
+- [x] Added `scripts/prepare_static_site_data.py`.
+- [x] Queried the live Prometheus API read-only in 21-day chunks at five-minute
+  resolution, selecting only direct application series with
+  `exported_job=""`.
+- [x] Wrote the derived snapshot into the new immutable directory
+  `site/src/data/archive-v1/`; the script refuses to overwrite an existing
+  snapshot directory.
+- [x] Preserved `archive-v1` unchanged and generated `archive-v2` after adding
+  the Bay Lights optical-regime segmentation and nighttime diagnostics.
+- [x] Preserved both earlier snapshots unchanged and generated `archive-v3`
+  after adding a real 30-minute activity series from the five-minute source.
+- [x] Generated summary, hourly, daily, monthly, weekday-profile, speed-profile,
+  coverage-gap, counter-reset, provenance, and manifest artifacts.
+- [x] Handled DST by aggregating UTC timestamps first and adding explicit Pacific
+  display labels. Expected daily samples correctly use 23-hour and 25-hour
+  local days.
+- [x] Marked the snapshot as a five-minute Prometheus query-range derivation,
+  not a lossless full-resolution TSDB export.
+
+Derived snapshot inventory:
+
+| Artifact | Rows / result |
+| --- | ---: |
+| `hourly.csv` | 16,466 |
+| `half-hour.csv` (archive-v3) | 32,926 directional half-hour bins |
+| `daily.csv` | 690 directional days |
+| `weekday-profile.csv` | 1,344 profile points |
+| `speed-profile.csv` | 1,344 profile points |
+| `coverage-gaps.csv` | 29 gaps over ten minutes |
+| Complete two-direction days | 335 |
+| Positive five-minute counter increments | 45,910,702 |
+| Observed period | 2025-08-07 11:05 PDT through 2026-07-24 21:20 PDT |
+
+#### Static site
+
+- [x] Added an Observable Framework site under `site/`.
+- [x] Implemented a Grafana-inspired near-black theme with Grafana blue/orange
+  direction colors, monospaced operational labels, compact panels, sharp
+  corners, and no decorative shadows.
+- [x] Added Overview, Historical Explorer, Typical Week, Notable Days, Data
+  Quality, External Validation, Methodology, and Data/Download pages.
+- [x] Recreated the September-style weekday and relative-speed analyses using
+  the full-period snapshot, with median/interquartile envelopes and coverage
+  qualification.
+- [x] Added date, direction, metric, scaling, and lighting controls to the
+  explorer. With the optional half-hour grid, its uncompressed data payload is
+  approximately 5.0 MB and is composed of immutable, cacheable static files.
+- [x] Made local preview use port 4173 so it does not conflict with Grafana on
+  port 3000.
+- [x] Kept the site independent of the live Prometheus and Grafana services; all
+  page data is bundled into static output.
+- [x] Restyled the Explorer day-by-hour heatmap as a GitHub contribution-style
+  grid: five discrete dark-mode green intensity buckets, visible cell gaps,
+  compact square-like marks, and a Less→More legend. Buckets are selection-local
+  quintiles and are labeled as relative rather than absolute traffic levels.
+- [x] Decoupled the heatmap direction control from the main time-series
+  direction control so either bridge direction remains inspectable without
+  creating an accidental empty heatmap.
+- [x] Upgraded the activity grid from hourly to genuine half-hour resolution.
+  `archive-v3/half-hour.csv` contains 32,926 direction-resolved bins; each
+  complete bin aggregates six five-minute Prometheus samples and retains its
+  sample count and coverage.
+- [x] Bucketed half-hours in UTC before conversion to Pacific time so the
+  repeated half-hour during daylight-saving fallback remains unambiguous.
+- [x] Added a half-hour aggregation unit test and switched all site analysis
+  inputs consistently from `archive-v2` to the additive `archive-v3`.
+- [ ] Add final public Hugging Face links after a raw-data release exists.
+- [ ] Deploy or alter DNS. No public infrastructure change has been made.
+
+#### Validation
+
+- [x] `tests/test_static_site_data.py` passes its DST, direction-specific
+  counter-reset, lighting-boundary, and cross-midnight night-window tests.
+- [x] The Observable production build succeeds for all eight pages.
+- [x] Runtime browser checks found no JavaScript exceptions on the site pages.
+- [x] Desktop and mobile layouts were visually inspected; the mobile content
+  width was corrected to prevent horizontal clipping.
+- [x] The two external-validation tests and five static-site derivation tests
+  pass. A full discovery run reached the pre-existing live metrics integration
+  test but could not bind its fixed port 9092 because it was already in use;
+  this is unrelated to the archive/validation code.
+- [x] Production runtime dependencies report no known npm vulnerabilities.
+- [ ] Observable Framework's development-only dependency tree reports one low
+  and five high advisories in transitive build tooling. The suggested forced
+  remediation downgrades Framework, so it was not applied. Reassess before a
+  hosted build; static output contains no Node runtime.
+
+#### Bay Lights detector discontinuity — 2026-07-26
+
+The user identified the 2026 Bay Lights relighting as a likely camera-detector
+regime change. Contemporary sources establish two external milestones:
+
+- A February 26, 2026 *San Francisco Chronicle* report said 48,000 LEDs had
+  entered a 24/7 burn-in approximately one week earlier. The analysis uses
+  **2026-02-19** as an explicitly approximate commissioning boundary.
+- Illuminate announced and held the official public Grand Lighting on
+  **2026-03-20**, after which the primary north-facing installation was
+  scheduled to operate nightly from dusk until dawn.
+
+Sources:
+
+- <https://www.sfchronicle.com/sf/article/bay-lights-return-bay-bridge-21944006.php/>
+- <https://illuminate.org/2026/02/19/the-bay-lights-to-return-friday-march-20-2026/>
+
+Read-only analysis of the detector archive confirms a night-specific
+discontinuity. The strongest onset occurs during commissioning around March
+8–12, not as one perfectly clean step on the approximate February 19 boundary.
+At five-minute resolution, comparing complete 22:00–05:00 Pacific nights before
+commissioning with nights after the official launch:
+
+| Detector-stability diagnostic | Pre-lights | Illuminated era | Ratio |
+| --- | ---: | ---: | ---: |
+| Median nightly spike excess, directions averaged | 20.4 detections/min | 60.3 detections/min | 3.0× |
+| Median nightly maximum, directions averaged | 47.0 detections/min | 160.5 detections/min | 3.4× |
+| Median within-night standard deviation, directions averaged | 9.8 detections/min | 27.2 detections/min | 2.8× |
+
+A one-minute read-only diagnostic over February 1 through April 14 provides a
+stronger-resolution cross-check: the combined nightly median maximum increased
+from approximately 85 to 305 detections/min, median 95th-percentile excess from
+approximately 22 to 134 detections/min, and median minute-to-minute absolute
+change from 4.5 to 22. Median `tracked_objects_active` increased from 1 before
+commissioning to 4 after launch. Daytime flow did not exhibit a comparable
+spike-noise increase.
+
+This pattern is consistent with animated LEDs being segmented and tracked as
+motion. It is strong observational evidence, but not a controlled causal test;
+seasonality, weather, camera exposure, and real traffic remain possible
+contributors.
+
+Implementation response:
+
+- [x] Added `pre_lights`, `commissioning`, and `illuminated` fields to hourly
+  and daily data.
+- [x] Added segmented weekday-flow and pixel-speed profiles plus an `all`
+  aggregate.
+- [x] Added `night-noise.csv`, `lighting-impact-summary.csv`, and
+  `lighting-events.csv` to immutable `archive-v2`.
+- [x] Added All, Pre-lights, Commissioning, and Illuminated-era controls to
+  Explorer, Typical Week, and Notable Days.
+- [x] Defaulted pattern and notable-day analysis to the cleaner pre-lights
+  regime while retaining an explicit combined-data option.
+- [x] Added event annotations, source links, warnings, methodology, and a
+  dedicated Bay Lights diagnostic chart to Data Quality.
+
+Analytical policy: do not use mixed-regime nighttime measurements for traffic
+inference without explicitly accepting the detector discontinuity. Treat
+commissioning as a transition/exclusion interval. Prefer pre-lights for
+nighttime traffic-pattern claims; use illuminated-era data primarily for
+detector-behavior analysis unless independently calibrated.
+
+#### External traffic-count validation — 2026-07-26
+
+The detector has no retained continuous imagery or manually labeled audit set.
+Its precision, recall, false-positive rate, and false-negative rate are
+therefore unknown. To constrain interpretation without inventing an accuracy
+claim, a new read-only analysis compared complete pre-lights detector days with
+official public traffic statistics.
+
+Sources and scope:
+
+- [MTC Monthly Transportation Statistics](https://mtc.ca.gov/tools-resources/data-tools/monthly-transportation-statistics)
+  supplies monthly Bay Bridge totals for the one-way toll direction. On the Bay
+  Bridge this is westbound/SF-bound.
+- [Caltrans Traffic Census Program](https://dot.ca.gov/programs/traffic-operations/census)
+  publishes annual average daily traffic and peak-hour workbooks.
+- The [Caltrans 2024 AADT workbook](https://dot.ca.gov/-/media/dot-media/programs/traffic-operations/documents/census/2024/2024-traffic-volumes-ca-a11y.xlsx)
+  reports approximately 115,000 lower-deck/eastbound and 118,000
+  upper-deck/westbound vehicles per day on the west span near Treasure Island.
+- The [Caltrans 2024 peak-hour workbook](https://dot.ca.gov/-/media/dot-media/programs/traffic-operations/documents/census/2024/2024-ca-peak-hours-a11y.xlsx)
+  identifies westbound as the AM peak direction and eastbound as the PM peak
+  direction at the toll plaza.
+
+Comparison baseline: 191 complete detector days before the approximate
+February 19, 2026 Bay Lights commissioning boundary.
+
+| Direction | Camera pre-lights daily mean | Official 2024 AADT reference | Indicative ratio |
+| --- | ---: | ---: | ---: |
+| Oakland-bound / `left` | 46,986 detections | 115,000 vehicles | 2.45× |
+| SF-bound / `right` | 86,965 detections | 118,000 vehicles | 1.36× |
+
+The camera assigns 35.1% of pre-lights detections to Oakland-bound and 64.9% to
+SF-bound. The official directional reference is nearly balanced at 49.4% and
+50.6%. This falsifies any interpretation of the camera's apparent two-to-one
+directional ratio as the bridge's actual traffic split and shows that a single
+global scale factor is inappropriate.
+
+For SF-bound traffic, monthly MTC comparisons from August 2025 through January
+2026 produce detector-to-official reference multipliers between 1.23× and
+1.43×. This suggests the SF-bound detector series can support cautious relative
+trend analysis before the lighting change. It does not validate hourly values
+or establish a correction factor. The Oakland-bound ratio is larger and less
+stable, consistent with a stronger view/occlusion response on that deck.
+
+High-level conclusion audit:
+
+| Existing observation | Audit result |
+| --- | --- |
+| SF-bound weekday morning peak | Qualitatively corroborated; exact detector peak hour is not |
+| Oakland-bound afternoon peak | Qualitatively corroborated; exact profile is not |
+| Camera's roughly 2:1 directional volume | Contradicted as a traffic claim; retained only as detector behavior |
+| Sunday appears quieter | Camera-only observation; no current third-party day-of-week validation obtained |
+| Post-relighting night surge/noise | Optical detector discontinuity, not evidence of traffic growth |
+
+Implementation response:
+
+- [x] Added `scripts/prepare_external_validation.py`, which downloads the public
+  workbooks, reads the immutable derived detector snapshot, and refuses to
+  overwrite an existing output directory.
+- [x] Created additive `site/src/data/validation-v1/` tables, provenance, and
+  SHA-256 manifest. No source data or prior snapshot was modified.
+- [x] Added a dedicated External Validation page, source links, downloadable
+  comparison tables, and prominent accuracy/correction-factor warnings.
+- [x] Added the same calibration boundary to Overview, Data Quality,
+  Methodology, and Data.
+
+Analytical policy, revised at user request: publish the original algorithmic
+detections unchanged, but default count/flow plots to a reversible
+direction-specific presentation transform of 2.447544× Oakland-bound and
+1.356866× SF-bound. Every affected page must offer a Raw detector option and
+label scaled values as reference-scaled estimates rather than corrected or
+ground-truth traffic. Do not scale coverage, pixel-speed, validation, or
+detector-noise diagnostics, and do not derive a separate post-Bay-Lights
+nighttime factor from these comparisons.
+
+Implementation response:
+
+- [x] Centralized the factors and display-mode labels in
+  `site/src/components/data.js`.
+- [x] Defaulted Overview, Explorer, Typical Week, and Notable Days traffic
+  plots to reference-scaled estimates.
+- [x] Added per-page controls to remove the transform and inspect raw detector
+  values.
+- [x] Kept immutable CSV snapshots unchanged; scaling occurs only in browser
+  presentation code.
+
+#### Test-safety incident
+
+While validating the pre-existing `tests/test_metrics.py --unit` suite, the
+test instantiated `TrafficMetrics` with the production default
+`persist_state=True`. It wrote the ignored local
+`traffic_metrics_state.json`, replacing its contents with test counters
+`left=2` and `right=1`. The test was terminated, and the state file has not been
+restored, overwritten again, or deleted.
+
+The Prometheus TSDB, Grafana data, containers, and derived archive are
+unaffected. The old `.bak` file predates most collection and is not a suitable
+automatic restore source. A reconstruction from the final Prometheus counter
+samples is possible, but writing that reconstruction is intentionally pending
+explicit approval.
+
+The unit-test configuration now sets `persist_state=False`, and its worker test
+uses a bounded mocked wait. The suite subsequently passed seven tests in 0.002
+seconds with the collector state file SHA-256 unchanged before and after. No
+production persistence behavior was modified.
 
 ### Repository state observed
 
@@ -596,14 +948,14 @@ Before making the repository public:
 
 ### Phase 0 — Preserve before modifying
 
-- [ ] Record container IDs, image digests, mounts, volume names, Prometheus
+- [x] Record container IDs, image digests, mounts, volume names, Prometheus
   version, Grafana version, and final timestamps.
 - [ ] Copy the active Prometheus TSDB using a consistency-safe process.
 - [ ] Copy the active Grafana data volume/SQLite database.
-- [ ] Export the live Grafana dashboard and datasource metadata through the API.
-- [ ] Save Prometheus flags, build information, block inventory, and series
+- [x] Export the live Grafana dashboard and datasource metadata through the API.
+- [x] Save Prometheus flags, build information, block inventory, and series
   inventory.
-- [ ] Generate checksums.
+- [x] Generate checksums for the captured metadata.
 - [ ] Verify both local and second-location backups before any Docker cleanup.
 
 Exit criterion: two verified copies of the source archive, plus a documented
@@ -626,27 +978,28 @@ pass tests, and the export is reproducible from the archived TSDB.
 
 ### Phase 2 — Full-period analysis
 
-- [ ] Replace the September-only discovery metadata.
-- [ ] Recompute complete-day/hour/week profiles over the full period.
-- [ ] Quantify missingness before every aggregate.
-- [ ] Generate headline statistics from one versioned analysis module.
-- [ ] Identify notable complete days and distinguish operational failures.
-- [ ] Write a final quality report and limitations section.
+- [x] Replace the September-only discovery metadata in the static snapshot.
+- [x] Recompute complete-day/hour/week profiles over the full period.
+- [x] Quantify missingness before every aggregate.
+- [x] Generate headline statistics from one versioned analysis module.
+- [x] Identify notable complete days separately from coverage failures.
+- [x] Write the first quality report and limitations section.
 
 Exit criterion: every public statistic can be traced to a script, dataset
 version, and testable computation.
 
 ### Phase 3 — Static site
 
-- [ ] Add Observable Framework alongside the Python project.
-- [ ] Implement shared page layout and navigation.
-- [ ] Build Home, Explorer, Typical Week, Notable Days, Methodology, and Download
+- [x] Add Observable Framework alongside the Python project.
+- [x] Implement shared page layout and navigation.
+- [x] Build Home, Explorer, Typical Week, Notable Days, Methodology, and Download
   pages.
-- [ ] Generate compact site data through Python build-time loaders.
-- [ ] Add responsive and accessibility checks.
-- [ ] Ensure the site functions without Prometheus, Grafana, or network access to
+- [x] Generate compact site data through the Python preparation script.
+- [~] Add responsive and accessibility checks. Responsive layouts were inspected;
+  a formal accessibility audit remains.
+- [x] Ensure the site functions without Prometheus, Grafana, or network access to
   Hugging Face except for download links.
-- [ ] Verify asset sizes and page-load behavior.
+- [x] Verify asset sizes and page-load behavior.
 
 Exit criterion: the complete site can be served from the generated static
 directory with all analytical views working.
@@ -687,10 +1040,18 @@ and recovery does not depend on a Docker volume remaining on one laptop.
 | 2026-07-26 | Preserve both native TSDB and Parquet | Native TSDB maximizes recoverability; Parquet maximizes reuse |
 | 2026-07-26 | Publish derived data separately from raw data | Fast browser experience without compromising access to full-resolution samples |
 | 2026-07-26 | Call records "algorithmic detections" | Avoid implying verified physical vehicle counts |
+| 2026-07-26 | Do not bake reference multipliers into source data | Directional ratios do not measure precision, recall, or time-varying error; presentation scaling must remain reversible |
+| 2026-07-26 | Default plots to reversible reference scaling | User requested estimated traffic as the primary view; raw detector values remain selectable and source files remain unchanged |
 
 ## Next action
 
-Perform Phase 0 only: create and verify immutable backups without deleting,
-recreating, or reconfiguring any running container. Once that source-of-truth
-archive is safe, implement the exporter against the copy rather than the live
-volume.
+Inspect the local preview at `http://localhost:4173`. In parallel, approve a
+short, consistency-safe snapshot procedure for the exact active Prometheus and
+Grafana volumes. That procedure must create new verified copies and must not
+delete, recreate, prune, or reconfigure any existing container or volume.
+
+After the immutable copies pass checksum and restore validation, run the
+full-resolution exporter against the copy, publish versioned Parquet shards to
+Hugging Face, and only then proceed to public static deployment. Restoring the
+collector state JSON is a separate explicit decision and is not required for
+the historical archive.
