@@ -308,6 +308,9 @@ Derived snapshot inventory:
   pans it; either edge resizes it; and double-click or **Reset zoom** restores
   the full active date/filter range. The primary chart and its y-domain update
   to the visible window while preserving exact hover values and data gaps.
+- [x] Rebuilt, browser-rendered, and redeployed the zoomable Explorer to the
+  durable `archive-preview` alias from commit `dffc59a`. All eight routes,
+  the updated Explorer markup, and the new hashed stylesheet returned HTTP 200.
 - [x] Added final public Hugging Face links after publishing the raw-data
   release.
 - [ ] Deploy or alter DNS. No public infrastructure change has been made.
