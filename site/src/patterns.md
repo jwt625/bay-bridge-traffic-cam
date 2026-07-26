@@ -137,17 +137,16 @@ resize((width) =>
 
 <div class="card chart-panel">
   <div class="panel-title">Weekly comparison</div>
-  <div class="panel-subtitle">${countScalingLabel(countScaling)} · same y-scale across panels</div>
+  <div class="panel-subtitle">${countScalingLabel(countScaling)} · both directions overlaid · solid median · shaded IQR · dashed mean · same y-scale across weekdays</div>
 
 ```js
 resize((width) =>
   Plot.plot({
     ...basePlotStyle,
     width,
-    height: 760,
-    marginLeft: 52,
+    height: 900,
+    marginLeft: 58,
     marginBottom: 44,
-    fx: {domain: ["left", "right"], label: null},
     fy: {domain: weekdays, label: null},
     x: {
       label: "local time",
@@ -158,17 +157,33 @@ resize((width) =>
     y: {label: null, grid: true},
     color: {
       domain: ["left", "right"],
-      range: [colors.left, colors.right]
+      range: [colors.left, colors.right],
+      legend: true
     },
     marks: [
+      Plot.areaY(periodProfile, {
+        x: "quarter_hour",
+        y1: "p25",
+        y2: "p75",
+        fill: "direction",
+        fy: "weekday",
+        fillOpacity: 0.13
+      }),
       Plot.lineY(periodProfile, {
         x: "quarter_hour",
         y: "median",
         stroke: "direction",
-        fx: "direction",
         fy: "weekday",
-        strokeWidth: 1.5,
+        strokeWidth: 1.7,
         tip: true
+      }),
+      Plot.lineY(periodProfile, {
+        x: "quarter_hour",
+        y: "mean",
+        stroke: "direction",
+        fy: "weekday",
+        strokeOpacity: 0.42,
+        strokeDasharray: "4,3"
       })
     ]
   })

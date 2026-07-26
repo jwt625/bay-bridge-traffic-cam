@@ -311,6 +311,10 @@ Derived snapshot inventory:
 - [x] Rebuilt, browser-rendered, and redeployed the zoomable Explorer to the
   durable `archive-preview` alias from commit `dffc59a`. All eight routes,
   the updated Explorer markup, and the new hashed stylesheet returned HTTP 200.
+- [x] Merged the two direction columns in the all-weekdays comparison into one
+  overlaid panel per weekday. Each panel now matches the large selected-day
+  chart semantics: direction-colored median lines, 25th–75th percentile
+  variation bands, and dashed means on a shared weekly y-scale.
 - [x] Added final public Hugging Face links after publishing the raw-data
   release.
 - [ ] Deploy or alter DNS. No public infrastructure change has been made.
