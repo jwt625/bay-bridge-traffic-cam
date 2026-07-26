@@ -2,7 +2,7 @@
 
 **Authors:** Wentao Jiang, Codex  
 **Date:** 2026-07-26  
-**Status:** 🟡 IMPLEMENTATION — Dataset Published, Deployment Preview Pending
+**Status:** 🟡 RELEASE — Pages Production Verified, Apex DNS Cutover Pending
 **Related:** RFD-004 (Prometheus/Grafana Monitoring), RFD-006 (Data Persistence
 Incident), RFD-007 (Historical Import), RFD-010 (Prometheus Retention), RFD-012
 (Speed Metrics), RFD-013 (Traffic Pattern Analysis)
@@ -112,8 +112,9 @@ analysis, insights, methodology, and reproducible downloads.
   five-minute derived snapshot exists; exact full-resolution export must run
   against an immutable TSDB copy.
 - [x] Regenerate the first analysis snapshot from the full observed period.
-- [~] Build, validate, and deploy the static site. The local static preview is
-  ready; public deployment has not been attempted.
+- [~] Build, validate, and deploy the static site. The approved build is
+  verified on the Cloudflare Pages production hostname; the apex DNS cutover
+  remains pending.
 - [x] Publish the dataset. The code release is prepared and scanned; making the
   currently private GitHub repository public remains a separate approval gate.
 - [ ] Retire the live tunnel and monitoring containers after verification.
@@ -197,8 +198,8 @@ except for disposable static build output.
   the remote dataset card, manifest, and export provenance byte-for-byte, and
   downloaded five representative Parquet shards spanning metrics/months.
   Their SHA-256 values match the local validated package.
-- [ ] Production replacement remains gated on a hosted site preview and user
-  inspection. No DNS, tunnel, proxy, or existing public page has changed.
+- [x] User inspected and approved the hosted site preview for production
+  release.
 - [x] Committed and pushed the archive/site implementation to the private
   GitHub `main` branch as commit `0cd2cb3`. Making the source repository public
   is intentionally separate from publishing the already public dataset.
@@ -218,10 +219,28 @@ except for disposable static build output.
   byte-identical to the local build. The macOS system `curl` required TLS 1.2
   because its older LibreSSL failed against the current Pages TLS handshake;
   OpenSSL 3 and normal browsers validate the Pages certificate successfully.
-- [ ] User visual approval of the durable preview is the current production
-  replacement gate. The production domain continues to return the exact same
-  content hash as the local legacy proxy, and both Prometheus and Grafana
-  remain running and unpaused.
+- [x] Promoted the exact approved build at Git commit `265809d` to the
+  Cloudflare Pages `main` production branch. Cloudflare reused all 73 already
+  verified files and created production deployment
+  `f4acfddc-dbc7-4e5c-a960-90a613668cfd`.
+- [x] Verified the stable Pages production hostname
+  `https://bay-bridge-traffic-archive.pages.dev`: all eight routes returned
+  HTTP 200 and the remotely fetched half-hour CSV SHA-256
+  (`28ae4fbed4de847975de546738a493f77db6bc7c4a2fe7f7114d07b58f5eb6e7`)
+  matched the local approved build.
+- [x] Added `bay-bridge-traffic.com` to the Pages project through the
+  Cloudflare API. Cloudflare accepted the association, but reports
+  `verification_data.error_message: "CNAME record not set"` because the
+  existing proxied apex DNS record still routes to the legacy Cloudflare
+  Tunnel.
+- [ ] Change the existing apex DNS record target to
+  `bay-bridge-traffic-archive.pages.dev`, then verify TLS, all routes, and the
+  representative data checksum on the apex. Wrangler OAuth has Pages-write
+  permission but no DNS-read/write permission, so this final DNS edit cannot be
+  performed with the authenticated CLI session.
+- [x] Kept the legacy Cloudflare Tunnel, proxy, Grafana, Prometheus, Docker
+  volumes, and verified backups intact and running as rollback sources. Nothing
+  was deleted, stopped, or reconfigured during this release attempt.
 - [x] Confirmed Hugging Face CLI authentication as user `jwt625`; the target
   dataset repository does not currently exist, so upload cannot accidentally
   overwrite an existing dataset.
@@ -1051,12 +1070,13 @@ directory with all analytical views working.
 
 ### Phase 4 — Publish
 
-- [ ] Create and populate the Hugging Face dataset repository.
-- [ ] Verify Dataset Viewer, schemas, checksums, and download examples.
-- [ ] Add code/data licenses and citation files.
-- [ ] Complete full-history secret scanning and rotate credentials.
+- [x] Create and populate the Hugging Face dataset repository.
+- [x] Verify remote paths, schemas, checksums, and representative downloads.
+- [x] Add code/data licenses and citation files.
+- [~] Complete full-history secret scanning and rotate credentials. Scans are
+  complete with zero findings; retirement-time credential rotation remains.
 - [ ] Make the GitHub repository public.
-- [ ] Configure Cloudflare Pages build/deployment.
+- [x] Configure and verify Cloudflare Pages production deployment.
 - [ ] Attach and test `bay-bridge-traffic.com`.
 - [ ] Test links, mobile layout, cache behavior, and a clean-browser session.
 
@@ -1090,13 +1110,15 @@ and recovery does not depend on a Docker volume remaining on one laptop.
 
 ## Next action
 
-Inspect the local preview at `http://localhost:4173`. In parallel, approve a
-short, consistency-safe snapshot procedure for the exact active Prometheus and
-Grafana volumes. That procedure must create new verified copies and must not
-delete, recreate, prune, or reconfigure any existing container or volume.
+In the Cloudflare dashboard DNS records for `bay-bridge-traffic.com`, edit the
+existing apex (`@`) record so its target is
+`bay-bridge-traffic-archive.pages.dev` and keep it proxied. Do not create a
+second apex record and do not delete the Pages custom-domain association. This
+replaces only the production request route; it does not stop or delete the old
+Tunnel or any local service.
 
-After the immutable copies pass checksum and restore validation, run the
-full-resolution exporter against the copy, publish versioned Parquet shards to
-Hugging Face, and only then proceed to public static deployment. Restoring the
-collector state JSON is a separate explicit decision and is not required for
-the historical archive.
+After that single DNS edit, poll the Pages custom-domain status until active and
+verify TLS, all eight routes, the expected site content, and the representative
+data checksum on `https://bay-bridge-traffic.com`. Keep the old Tunnel and local
+monitoring stack intact until the apex verification passes and their later
+retirement is separately approved.
