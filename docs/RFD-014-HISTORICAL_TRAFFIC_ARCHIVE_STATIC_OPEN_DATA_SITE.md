@@ -320,6 +320,10 @@ Derived snapshot inventory:
   and one on mobile. The seven weekday panels are now 300 pixels tall, making
   within-day variation and direction overlap substantially more legible while
   retaining a common y-domain.
+- [x] Formatted the x channel in all 15-minute profile hover tooltips as
+  zero-padded local time (`HH:MM`) instead of the underlying numeric
+  minute-of-day value. This applies to the selected-day flow chart, every
+  weekly small multiple, and the relative pixel-speed chart.
 - [x] Added final public Hugging Face links after publishing the raw-data
   release.
 - [ ] Deploy or alter DNS. No public infrastructure change has been made.

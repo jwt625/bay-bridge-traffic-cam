@@ -21,6 +21,12 @@ const speedRows = await FileAttachment("./data/archive-v3/speed-profile.csv").cs
 const profile = parseProfile(profileRows);
 const speedProfile = parseProfile(speedRows);
 const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const formatMinuteOfDay = (value) => {
+  const minute = Math.max(0, Math.min(1439, Math.round(Number(value))));
+  const hour = Math.floor(minute / 60);
+  return `${String(hour).padStart(2, "0")}:${String(minute % 60).padStart(2, "0")}`;
+};
+const profileTip = {format: {x: formatMinuteOfDay}};
 ```
 
 <div class="page-kicker">Pattern analysis / complete days only</div>
@@ -118,7 +124,7 @@ resize((width) =>
         y: "median",
         stroke: "direction",
         strokeWidth: 2,
-        tip: true
+        tip: profileTip
       }),
       Plot.lineY(selectedProfile, {
         x: "quarter_hour",
@@ -192,7 +198,7 @@ resize((width) => {
           y: "median",
           stroke: "direction",
           strokeWidth: 1.8,
-          tip: true
+          tip: profileTip
         }),
         Plot.lineY(rows, {
           x: "quarter_hour",
@@ -260,7 +266,7 @@ resize((width) =>
         y: "median",
         stroke: "direction",
         strokeWidth: 1.8,
-        tip: true
+        tip: profileTip
       })
     ]
   })
