@@ -43,6 +43,112 @@ const lightingEvents = eventRows.map((row) => ({
 }));
 const minDate = d3.min(hourly, (row) => row.hour_local);
 const maxDate = d3.max(hourly, (row) => row.hour_local);
+
+function createHourlyBrush(data, metric, metricLabel, fallbackDomain) {
+  const control = document.createElement("div");
+  control.className = "time-brush";
+  const observedDomain = d3.extent(data, (row) => row.hour_local);
+  const fullDomain =
+    observedDomain[0] && observedDomain[1]
+      ? observedDomain
+      : fallbackDomain;
+  control.value = fullDomain;
+
+  if (!observedDomain[0] || !observedDomain[1]) {
+    control.textContent = "No observations in the current selection.";
+    return control;
+  }
+
+  const header = document.createElement("div");
+  header.className = "time-brush-header";
+  const readout = document.createElement("span");
+  readout.className = "time-brush-readout";
+  const reset = document.createElement("button");
+  reset.type = "button";
+  reset.className = "time-brush-reset";
+  reset.textContent = "Reset zoom";
+  header.append(readout, reset);
+  control.append(header);
+
+  const navigatorWidth = 1100;
+  const navigatorHeight = 104;
+  const marginTop = 8;
+  const marginRight = 14;
+  const marginBottom = 24;
+  const marginLeft = 52;
+  const navigator = Plot.plot({
+    ...basePlotStyle,
+    width: navigatorWidth,
+    height: navigatorHeight,
+    marginTop,
+    marginRight,
+    marginBottom,
+    marginLeft,
+    x: {domain: fullDomain, label: null, ticks: 6},
+    y: {axis: null, label: null},
+    color: {
+      domain: ["left", "right"],
+      range: [colors.left, colors.right]
+    },
+    marks: [
+      Plot.ruleY([0], {stroke: colors.grid}),
+      Plot.lineY(data, {
+        x: "hour_local",
+        y: metric,
+        stroke: "direction",
+        strokeOpacity: 0.72,
+        strokeWidth: 0.75
+      })
+    ]
+  });
+  navigator.classList.add("time-brush-navigator");
+  control.append(navigator);
+
+  const x = d3.scaleTime()
+    .domain(fullDomain)
+    .range([marginLeft, navigatorWidth - marginRight]);
+  const formatDate = d3.timeFormat("%b %-d, %Y %H:%M");
+  const updateReadout = ([start, end]) => {
+    readout.textContent =
+      `${formatDate(start)} — ${formatDate(end)} · ${metricLabel}`;
+  };
+  updateReadout(fullDomain);
+
+  let initializing = true;
+  const brush = d3.brushX()
+    .extent([
+      [marginLeft, marginTop],
+      [navigatorWidth - marginRight, navigatorHeight - marginBottom]
+    ])
+    .on("end", (event) => {
+      if (initializing) return;
+      const selection = event.selection;
+      if (!selection) {
+        brushLayer.call(brush.move, x.range());
+        return;
+      }
+      const window = selection.map(x.invert);
+      if (+window[1] <= +window[0]) return;
+      control.value = window;
+      updateReadout(window);
+      control.dispatchEvent(new Event("input", {bubbles: true}));
+    });
+  const brushLayer = d3.select(navigator)
+    .append("g")
+    .attr("class", "hourly-brush")
+    .call(brush);
+  brushLayer.call(brush.move, x.range());
+  initializing = false;
+
+  reset.addEventListener("click", () => {
+    brushLayer.call(brush.move, x.range());
+  });
+  navigator.addEventListener("dblclick", (event) => {
+    event.preventDefault();
+    brushLayer.call(brush.move, x.range());
+  });
+  return control;
+}
 ```
 
 <div class="page-kicker">Archive explorer / hourly resolution</div>
@@ -157,7 +263,27 @@ html`<div class="grid grid-cols-3">
 
 <div class="card chart-panel">
   <div class="panel-title">Hourly time series</div>
-  <div class="panel-subtitle">Hover for exact timestamp and value · gaps remain visible</div>
+  <div class="panel-subtitle">Drag across the navigator to zoom · drag the selected window to pan · resize either handle · double-click or reset to show all · hover the main chart for exact values</div>
+
+```js
+const zoomWindow = view(
+  createHourlyBrush(
+    filtered,
+    metric,
+    metricLabel,
+    [startBoundary, endBoundary]
+  )
+);
+const visibleHourly = filtered.filter(
+  (row) =>
+    row.hour_local >= zoomWindow[0] &&
+    row.hour_local <= zoomWindow[1]
+);
+const zoomedMaxValue = d3.max(visibleHourly, (row) => row[metric]) || maxValue || 1;
+const zoomedLightingEvents = visibleLightingEvents.filter(
+  (row) => row.date >= zoomWindow[0] && row.date <= zoomWindow[1]
+);
+```
 
 ```js
 resize((width) =>
@@ -166,11 +292,11 @@ resize((width) =>
     width,
     height: 460,
     marginLeft: 66,
-    x: {label: null},
+    x: {label: null, domain: zoomWindow},
     y: {
       label: metricLabel,
       grid: true,
-      domain: metric === "coverage" ? [0, 1] : [0, maxValue]
+      domain: metric === "coverage" ? [0, 1] : [0, zoomedMaxValue]
     },
     color: {
       domain: ["left", "right"],
@@ -179,13 +305,13 @@ resize((width) =>
     },
     marks: [
       Plot.ruleY([0], {stroke: colors.grid}),
-      Plot.ruleX(visibleLightingEvents, {
+      Plot.ruleX(zoomedLightingEvents, {
         x: "date",
         stroke: (row) => row.event_type === "derived" ? colors.warn : colors.bad,
         strokeDasharray: "5,4",
         tip: true
       }),
-      Plot.lineY(filtered, {
+      Plot.lineY(visibleHourly, {
         x: "hour_local",
         y: metric,
         stroke: "direction",

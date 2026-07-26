@@ -239,6 +239,65 @@ table {
   min-height: 300px;
 }
 
+.time-brush {
+  margin: 0.5rem 0 0.9rem;
+  padding: 0.45rem 0.55rem 0.2rem;
+  border: 1px solid var(--border);
+  background: #0d0f13;
+}
+
+.time-brush-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  min-height: 30px;
+}
+
+.time-brush-readout {
+  color: var(--theme-foreground-muted);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+}
+
+.time-brush-reset {
+  padding: 0.28rem 0.55rem;
+  border: 1px solid var(--border-strong);
+  background: var(--panel-raised);
+  color: var(--theme-foreground-alt);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  cursor: pointer;
+}
+
+.time-brush-reset:hover {
+  border-color: var(--theme-blue);
+  color: var(--theme-foreground);
+}
+
+.time-brush-navigator {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.hourly-brush .overlay {
+  cursor: crosshair;
+}
+
+.hourly-brush .selection {
+  fill: var(--theme-blue);
+  fill-opacity: 0.16;
+  stroke: var(--theme-blue);
+  stroke-width: 1;
+}
+
+.hourly-brush .handle {
+  fill: var(--theme-blue);
+  fill-opacity: 0.8;
+}
+
 .note {
   margin: 1rem 0;
   padding: 0.8rem 0.95rem;

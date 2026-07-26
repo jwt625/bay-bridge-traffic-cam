@@ -303,7 +303,13 @@ Derived snapshot inventory:
   repeated half-hour during daylight-saving fallback remains unambiguous.
 - [x] Added a half-hour aggregation unit test and switched all site analysis
   inputs consistently from `archive-v2` to the additive `archive-v3`.
-- [ ] Add final public Hugging Face links after a raw-data release exists.
+- [x] Added an interactive x-axis navigator to the Explorer hourly time series.
+  Dragging across the navigator selects a zoom window; dragging the selection
+  pans it; either edge resizes it; and double-click or **Reset zoom** restores
+  the full active date/filter range. The primary chart and its y-domain update
+  to the visible window while preserving exact hover values and data gaps.
+- [x] Added final public Hugging Face links after publishing the raw-data
+  release.
 - [ ] Deploy or alter DNS. No public infrastructure change has been made.
 
 #### Validation
