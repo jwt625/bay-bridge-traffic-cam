@@ -274,15 +274,6 @@ const zoomWindow = view(
     [startBoundary, endBoundary]
   )
 );
-const visibleHourly = filtered.filter(
-  (row) =>
-    row.hour_local >= zoomWindow[0] &&
-    row.hour_local <= zoomWindow[1]
-);
-const zoomedMaxValue = d3.max(visibleHourly, (row) => row[metric]) || maxValue || 1;
-const zoomedLightingEvents = visibleLightingEvents.filter(
-  (row) => row.date >= zoomWindow[0] && row.date <= zoomWindow[1]
-);
 ```
 
 ```js
@@ -296,7 +287,7 @@ resize((width) =>
     y: {
       label: metricLabel,
       grid: true,
-      domain: metric === "coverage" ? [0, 1] : [0, zoomedMaxValue]
+      domain: metric === "coverage" ? [0, 1] : [0, maxValue]
     },
     color: {
       domain: ["left", "right"],
@@ -305,13 +296,13 @@ resize((width) =>
     },
     marks: [
       Plot.ruleY([0], {stroke: colors.grid}),
-      Plot.ruleX(zoomedLightingEvents, {
+      Plot.ruleX(visibleLightingEvents, {
         x: "date",
         stroke: (row) => row.event_type === "derived" ? colors.warn : colors.bad,
         strokeDasharray: "5,4",
         tip: true
       }),
-      Plot.lineY(visibleHourly, {
+      Plot.lineY(filtered, {
         x: "hour_local",
         y: metric,
         stroke: "direction",
