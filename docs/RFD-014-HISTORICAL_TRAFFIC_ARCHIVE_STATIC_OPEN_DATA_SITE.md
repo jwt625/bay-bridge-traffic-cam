@@ -199,6 +199,18 @@ except for disposable static build output.
   Their SHA-256 values match the local validated package.
 - [ ] Production replacement remains gated on a hosted site preview and user
   inspection. No DNS, tunnel, proxy, or existing public page has changed.
+- [x] Committed and pushed the archive/site implementation to the private
+  GitHub `main` branch as commit `0cd2cb3`. Making the source repository public
+  is intentionally separate from publishing the already public dataset.
+- [x] Deployed the built `site/dist/` to an isolated temporary Cloudflare
+  Workers preview without using the production account, DNS, domain, or
+  tunnel. All eight page routes and representative hashed JS, CSS, and data
+  assets returned HTTP 200 after propagation; a remotely fetched half-hour CSV
+  matched the local build checksum.
+- [~] Started Cloudflare Wrangler OAuth for the durable Pages deployment. The
+  browser approval is the current user-input blocker. The production domain
+  continues to return the exact same content hash as the local legacy proxy,
+  and both Prometheus and Grafana remain running and unpaused.
 - [x] Confirmed Hugging Face CLI authentication as user `jwt625`; the target
   dataset repository does not currently exist, so upload cannot accidentally
   overwrite an existing dataset.
