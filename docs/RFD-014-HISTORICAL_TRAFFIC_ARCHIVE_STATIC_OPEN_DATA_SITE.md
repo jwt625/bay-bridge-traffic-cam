@@ -207,10 +207,21 @@ except for disposable static build output.
   tunnel. All eight page routes and representative hashed JS, CSS, and data
   assets returned HTTP 200 after propagation; a remotely fetched half-hour CSV
   matched the local build checksum.
-- [~] Started Cloudflare Wrangler OAuth for the durable Pages deployment. The
-  browser approval is the current user-input blocker. The production domain
-  continues to return the exact same content hash as the local legacy proxy,
-  and both Prometheus and Grafana remain running and unpaused.
+- [x] Completed Cloudflare Wrangler OAuth after the initial callback attempt
+  timed out. Declined Wrangler's unrelated optional AI-agent skill
+  installation.
+- [x] Created the durable Cloudflare Pages project
+  `bay-bridge-traffic-archive` and deployed commit `7467dd2` to the isolated
+  `archive-preview` branch.
+- [x] Verified all eight durable preview routes plus representative hashed JS,
+  CSS, and data assets over HTTPS. The remotely served half-hour CSV is
+  byte-identical to the local build. The macOS system `curl` required TLS 1.2
+  because its older LibreSSL failed against the current Pages TLS handshake;
+  OpenSSL 3 and normal browsers validate the Pages certificate successfully.
+- [ ] User visual approval of the durable preview is the current production
+  replacement gate. The production domain continues to return the exact same
+  content hash as the local legacy proxy, and both Prometheus and Grafana
+  remain running and unpaused.
 - [x] Confirmed Hugging Face CLI authentication as user `jwt625`; the target
   dataset repository does not currently exist, so upload cannot accidentally
   overwrite an existing dataset.
