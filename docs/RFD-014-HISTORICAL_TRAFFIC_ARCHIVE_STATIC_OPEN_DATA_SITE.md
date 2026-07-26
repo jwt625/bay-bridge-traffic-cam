@@ -315,6 +315,11 @@ Derived snapshot inventory:
   overlaid panel per weekday. Each panel now matches the large selected-day
   chart semantics: direction-colored median lines, 25th–75th percentile
   variation bands, and dashed means on a shared weekly y-scale.
+- [x] Rearranged the weekly comparison into a responsive small-multiples grid:
+  three columns by three rows on wide screens, two columns on medium screens,
+  and one on mobile. The seven weekday panels are now 300 pixels tall, making
+  within-day variation and direction overlap substantially more legible while
+  retaining a common y-domain.
 - [x] Added final public Hugging Face links after publishing the raw-data
   release.
 - [ ] Deploy or alter DNS. No public infrastructure change has been made.

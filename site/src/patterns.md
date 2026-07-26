@@ -137,57 +137,82 @@ resize((width) =>
 
 <div class="card chart-panel">
   <div class="panel-title">Weekly comparison</div>
-  <div class="panel-subtitle">${countScalingLabel(countScaling)} · both directions overlaid · solid median · shaded IQR · dashed mean · same y-scale across weekdays</div>
+  <div class="panel-subtitle">${countScalingLabel(countScaling)} · both directions overlaid · solid median · shaded IQR · dashed mean · same y-scale across panels</div>
+  <div class="weekly-direction-legend">
+    <span><i class="swatch left"></i>Left / Oakland-bound</span>
+    <span><i class="swatch right"></i>Right / SF-bound</span>
+  </div>
 
 ```js
-resize((width) =>
-  Plot.plot({
-    ...basePlotStyle,
-    width,
-    height: 900,
-    marginLeft: 58,
-    marginBottom: 44,
-    fy: {domain: weekdays, label: null},
-    x: {
-      label: "local time",
-      domain: [0, 1440],
-      ticks: 6,
-      tickFormat: (minute) => `${Math.floor(minute / 60)}h`
-    },
-    y: {label: null, grid: true},
-    color: {
-      domain: ["left", "right"],
-      range: [colors.left, colors.right],
-      legend: true
-    },
-    marks: [
-      Plot.areaY(periodProfile, {
-        x: "quarter_hour",
-        y1: "p25",
-        y2: "p75",
-        fill: "direction",
-        fy: "weekday",
-        fillOpacity: 0.13
-      }),
-      Plot.lineY(periodProfile, {
-        x: "quarter_hour",
-        y: "median",
-        stroke: "direction",
-        fy: "weekday",
-        strokeWidth: 1.7,
-        tip: true
-      }),
-      Plot.lineY(periodProfile, {
-        x: "quarter_hour",
-        y: "mean",
-        stroke: "direction",
-        fy: "weekday",
-        strokeOpacity: 0.42,
-        strokeDasharray: "4,3"
-      })
-    ]
-  })
-)
+const weeklyYMax = d3.max(periodProfile, (row) => row.p75) || 1;
+```
+
+```js
+resize((width) => {
+  const columns = width >= 900 ? 3 : width >= 600 ? 2 : 1;
+  const gap = 12;
+  const panelWidth = Math.floor((width - gap * (columns - 1)) / columns);
+  const panels = weekdays.map((weekday) => {
+    const rows = periodProfile.filter((row) => row.weekday === weekday);
+    const plot = Plot.plot({
+      ...basePlotStyle,
+      width: panelWidth,
+      height: 300,
+      marginTop: 10,
+      marginRight: 12,
+      marginBottom: 34,
+      marginLeft: 46,
+      x: {
+        label: null,
+        domain: [0, 1440],
+        ticks: 5,
+        tickFormat: (minute) => `${Math.floor(minute / 60)}h`
+      },
+      y: {
+        label: null,
+        domain: [0, weeklyYMax],
+        grid: true,
+        nice: true
+      },
+      color: {
+        domain: ["left", "right"],
+        range: [colors.left, colors.right]
+      },
+      marks: [
+        Plot.ruleY([0], {stroke: colors.grid}),
+        Plot.areaY(rows, {
+          x: "quarter_hour",
+          y1: "p25",
+          y2: "p75",
+          fill: "direction",
+          fillOpacity: 0.15
+        }),
+        Plot.lineY(rows, {
+          x: "quarter_hour",
+          y: "median",
+          stroke: "direction",
+          strokeWidth: 1.8,
+          tip: true
+        }),
+        Plot.lineY(rows, {
+          x: "quarter_hour",
+          y: "mean",
+          stroke: "direction",
+          strokeOpacity: 0.44,
+          strokeDasharray: "4,3"
+        })
+      ]
+    });
+    return html`<section class="weekly-small-panel">
+      <div class="weekly-small-title">${weekday}</div>
+      ${plot}
+    </section>`;
+  });
+  return html`<div
+    class="weekly-panel-grid"
+    style=${`--weekly-columns: ${columns}; --weekly-gap: ${gap}px`}
+  >${panels}</div>`;
+})
 ```
 </div>
 
