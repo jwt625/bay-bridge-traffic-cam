@@ -2,7 +2,7 @@
 
 **Authors:** Wentao Jiang, Codex  
 **Date:** 2026-07-26  
-**Status:** 🟡 RELEASE — Pages Production Verified, Apex DNS Cutover Pending
+**Status:** 🟢 RELEASED — Production Domain Verified, Legacy Stack Retained
 **Related:** RFD-004 (Prometheus/Grafana Monitoring), RFD-006 (Data Persistence
 Incident), RFD-007 (Historical Import), RFD-010 (Prometheus Retention), RFD-012
 (Speed Metrics), RFD-013 (Traffic Pattern Analysis)
@@ -112,9 +112,9 @@ analysis, insights, methodology, and reproducible downloads.
   five-minute derived snapshot exists; exact full-resolution export must run
   against an immutable TSDB copy.
 - [x] Regenerate the first analysis snapshot from the full observed period.
-- [~] Build, validate, and deploy the static site. The approved build is
-  verified on the Cloudflare Pages production hostname; the apex DNS cutover
-  remains pending.
+- [x] Build, validate, and deploy the static site. The approved build is live
+  and verified on both the Cloudflare Pages production hostname and the apex
+  production domain.
 - [x] Publish the dataset. The code release is prepared and scanned; making the
   currently private GitHub repository public remains a separate approval gate.
 - [ ] Retire the live tunnel and monitoring containers after verification.
@@ -233,11 +233,22 @@ except for disposable static build output.
   `verification_data.error_message: "CNAME record not set"` because the
   existing proxied apex DNS record still routes to the legacy Cloudflare
   Tunnel.
-- [ ] Change the existing apex DNS record target to
+- [x] Change the existing apex DNS record target to
   `bay-bridge-traffic-archive.pages.dev`, then verify TLS, all routes, and the
-  representative data checksum on the apex. Wrangler OAuth has Pages-write
-  permission but no DNS-read/write permission, so this final DNS edit cannot be
-  performed with the authenticated CLI session.
+  representative data checksum on the apex. Wrangler OAuth had Pages-write
+  permission but no DNS-read/write permission, so the user performed this
+  single dashboard edit.
+- [x] After the user completed the apex DNS edit, verified Cloudflare Pages
+  custom-domain status `active`, validation `active`, and verification
+  `active`. `https://bay-bridge-traffic.com` serves the static archive instead
+  of the legacy Grafana iframe; all eight routes return HTTP 200.
+- [x] Verified the apex-served half-hour CSV is byte-identical to the approved
+  local build with SHA-256
+  `28ae4fbed4de847975de546738a493f77db6bc7c4a2fe7f7114d07b58f5eb6e7`.
+- [x] Tested the production Explorer in a clean headless Chrome profile:
+  no Observable runtime errors, 16,466 selected rows, two hourly navigator
+  series, and two main-chart series. Resizing the x-zoom window updated the
+  displayed interval while both main series remained rendered.
 - [x] Kept the legacy Cloudflare Tunnel, proxy, Grafana, Prometheus, Docker
   volumes, and verified backups intact and running as rollback sources. Nothing
   was deleted, stopped, or reconfigured during this release attempt.
@@ -1077,8 +1088,10 @@ directory with all analytical views working.
   complete with zero findings; retirement-time credential rotation remains.
 - [ ] Make the GitHub repository public.
 - [x] Configure and verify Cloudflare Pages production deployment.
-- [ ] Attach and test `bay-bridge-traffic.com`.
-- [ ] Test links, mobile layout, cache behavior, and a clean-browser session.
+- [x] Attach and test `bay-bridge-traffic.com`.
+- [~] Test links, mobile layout, cache behavior, and a clean-browser session.
+  All routes and a clean-browser Explorer interaction pass; a dedicated mobile
+  and cache-behavior audit remains.
 
 Exit criterion: public site, source, and data are reachable and mutually linked.
 
@@ -1110,15 +1123,10 @@ and recovery does not depend on a Docker volume remaining on one laptop.
 
 ## Next action
 
-In the Cloudflare dashboard DNS records for `bay-bridge-traffic.com`, edit the
-existing apex (`@`) record so its target is
-`bay-bridge-traffic-archive.pages.dev` and keep it proxied. Do not create a
-second apex record and do not delete the Pages custom-domain association. This
-replaces only the production request route; it does not stop or delete the old
-Tunnel or any local service.
+Keep the old Tunnel, Grafana, Prometheus, proxy, Docker volumes, and verified
+backups intact as rollback sources until their retirement is separately
+approved. The production domain no longer depends on those services.
 
-After that single DNS edit, poll the Pages custom-domain status until active and
-verify TLS, all eight routes, the expected site content, and the representative
-data checksum on `https://bay-bridge-traffic.com`. Keep the old Tunnel and local
-monitoring stack intact until the apex verification passes and their later
-retirement is separately approved.
+Remaining independent decisions are whether to make the GitHub repository
+public and when to retire credentials and the legacy local serving stack.
+Neither is required for the released static site to remain available.
