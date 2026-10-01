@@ -604,7 +604,7 @@ The running container also binds its Prometheus configuration from an older
 checkout:
 
 ```text
-/Users/wentaojiang/Documents/GitHub/PlayGround/20250802_bay_bridge_traffic_cam/prometheus.yml
+/path/to/PlayGround/20250802_bay_bridge_traffic_cam/prometheus.yml
 ```
 
 The volume named for the current Compose project,

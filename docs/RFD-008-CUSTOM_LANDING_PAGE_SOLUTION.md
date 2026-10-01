@@ -655,7 +655,7 @@ server {
     listen 8080;
     server_name _;
 
-    root /Users/wentaojiang/Documents/GitHub/PlayGround/20250802_bay_bridge_traffic_cam/public;
+    root /path/to/PlayGround/20250802_bay_bridge_traffic_cam/public;
     index index.html;
 
     # Serve the landing page

@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-After moving the project from `/Users/wentaojiang/Documents/GitHub/PlayGround/20250802_bay_bridge_traffic_cam/` to `/Users/wentaojiang/Documents/GitHub/bay-bridge-traffic-cam/`, nginx proxy configuration broke, causing frontend JavaScript asset loading failures.
+After moving the project from `/path/to/PlayGround/20250802_bay_bridge_traffic_cam/` to `/path/to/bay-bridge-traffic-cam/`, nginx proxy configuration broke, causing frontend JavaScript asset loading failures.
 
 **Initial Error Symptoms:**
 ```
@@ -17,12 +17,12 @@ Failed to load resource: the server responded with a status of 404 (Not Found)
 
 **Original nginx config:**
 ```nginx
-root /Users/wentaojiang/Documents/GitHub/PlayGround/20250802_bay_bridge_traffic_cam/public;
+root /path/to/PlayGround/20250802_bay_bridge_traffic_cam/public;
 ```
 
 **Fix:** Updated to new path:
 ```nginx
-root /Users/wentaojiang/Documents/GitHub/bay-bridge-traffic-cam/public;
+root /path/to/bay-bridge-traffic-cam/public;
 ```
 
 **Status:** ✅ RESOLVED - Updated both local and global nginx configs.
@@ -153,7 +153,7 @@ location /public/ { proxy_pass http://localhost:3000; }
 ### 5. Root Cause Identified (RESOLVED)
 **Problem:** Grafana container was built from old repository location with stale volume mounts.
 
-**Discovery:** After moving repository from `/Users/wentaojiang/Documents/GitHub/PlayGround/20250802_bay_bridge_traffic_cam/` to `/Users/wentaojiang/Documents/GitHub/bay-bridge-traffic-cam/`, the Grafana Docker container still had volume mounts pointing to the old directory.
+**Discovery:** After moving repository from `/path/to/PlayGround/20250802_bay_bridge_traffic_cam/` to `/path/to/bay-bridge-traffic-cam/`, the Grafana Docker container still had volume mounts pointing to the old directory.
 
 **Fix Applied:**
 ```bash
@@ -182,13 +182,13 @@ docker-compose up -d grafana
 ### 7. Landing Page Permission Issue (RESOLVED)
 **Problem:** nginx (running as `nobody`) couldn't access files in user's home directory.
 
-**Error:** `stat() "/Users/wentaojiang/Documents/GitHub/bay-bridge-traffic-cam/public/index.html" failed (13: Permission denied)`
+**Error:** `stat() "/path/to/bay-bridge-traffic-cam/public/index.html" failed (13: Permission denied)`
 
 **Fix Applied:**
 ```bash
-chmod +x /Users/wentaojiang
-chmod +x /Users/wentaojiang/Documents
-chmod +x /Users/wentaojiang/Documents/GitHub
+chmod +x /Users/<user>
+chmod +x /Users/<user>/Documents
+chmod +x /path/to
 ```
 
 **Status:** ✅ RESOLVED - Landing page now serves correctly.
@@ -362,7 +362,7 @@ Landing Page: / - 200 ✅
 
 ```bash
 # Start the Python proxy server
-cd /Users/wentaojiang/Documents/GitHub/bay-bridge-traffic-cam
+cd /path/to/bay-bridge-traffic-cam
 python3 working-proxy.py
 
 # Server will start on port 8080 with output:

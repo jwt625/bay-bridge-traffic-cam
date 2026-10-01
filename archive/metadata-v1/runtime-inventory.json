@@ -11,7 +11,7 @@
           "mode": "ro",
           "name": null,
           "rw": false,
-          "source": "/Users/wentaojiang/Documents/GitHub/PlayGround/20250802_bay_bridge_traffic_cam/prometheus.yml",
+          "source": "/path/to/PlayGround/20250802_bay_bridge_traffic_cam/prometheus.yml",
           "type": "bind"
         },
         {
@@ -49,7 +49,7 @@
           "mode": "rw",
           "name": null,
           "rw": true,
-          "source": "/Users/wentaojiang/Documents/GitHub/bay-bridge-traffic-cam/grafana/grafana.ini",
+          "source": "/path/to/bay-bridge-traffic-cam/grafana/grafana.ini",
           "type": "bind"
         },
         {
@@ -57,7 +57,7 @@
           "mode": "rw",
           "name": null,
           "rw": true,
-          "source": "/Users/wentaojiang/Documents/GitHub/bay-bridge-traffic-cam/grafana/provisioning",
+          "source": "/path/to/bay-bridge-traffic-cam/grafana/provisioning",
           "type": "bind"
         },
         {
@@ -73,7 +73,7 @@
           "mode": "rw",
           "name": null,
           "rw": true,
-          "source": "/Users/wentaojiang/Documents/GitHub/bay-bridge-traffic-cam/grafana/dashboards",
+          "source": "/path/to/bay-bridge-traffic-cam/grafana/dashboards",
           "type": "bind"
         }
       ],

@@ -31,7 +31,7 @@ class WorkingProxyHandler(http.server.BaseHTTPRequestHandler):
     
     def serve_landing_page(self):
         try:
-            landing_page_path = '/Users/wentaojiang/Documents/GitHub/bay-bridge-traffic-cam/public/index.html'
+            landing_page_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'public', 'index.html')
             with open(landing_page_path, 'rb') as f:
                 content = f.read()
             
